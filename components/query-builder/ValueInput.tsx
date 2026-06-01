@@ -1,7 +1,7 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
 import { SchemaField, Operator } from "@/lib/schema/type"
+import { Input } from "@/components/ui/input"
 
 interface Props {
     fieldDef: SchemaField | undefined

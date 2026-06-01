@@ -1,9 +1,16 @@
 "use client"
 
-import { QueryNode, QueryGroup as QueryGroupType, } from "@/lib/schema/type"
+import { QueryGroup as QueryGroupType, QueryNode } from "@/lib/schema/type"
 import { useQueryStore } from "@/store/query-store"
-import { Button } from "@/components/ui/button"
 import { QueryRule } from "./QueryRule"
+import { Button } from "@/components/ui/button"
+import {
+    ChevronDown,
+    ChevronRight,
+    Plus,
+    Layers,
+    Trash2,
+} from "lucide-react"
 import {
     DndContext,
     closestCenter,
@@ -13,14 +20,6 @@ import {
     useSensors,
     DragEndEvent,
 } from "@dnd-kit/core"
-import {
-    ChevronDown,
-    ChevronRight,
-    Plus,
-    Layers,
-    Trash2,
-} from "lucide-react"
-
 import {
     SortableContext,
     sortableKeyboardCoordinates,
@@ -72,9 +71,9 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
 
     return (
         <div className={`border-l-2 ${borderColor} pl-3 mb-3`}>
-
+            {/* Group header */}
             <div className="flex items-center gap-2 mb-2">
-
+                {/* Collapse toggle */}
                 <button
                     onClick={() => toggleCollapse(node.id)}
                     className="text-muted-foreground hover:text-foreground"
@@ -82,12 +81,12 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                     {node.collapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
                 </button>
 
-
+                {/* AND / OR toggle */}
                 <button
                     onClick={() => toggleLogic(node.id)}
                     className={`text-xs font-semibold px-3 py-1 rounded-full border transition-colors ${node.logic === "AND"
-                        ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300"
-                        : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300"
+                            ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300"
+                            : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300"
                         }`}
                 >
                     {node.logic}
@@ -97,7 +96,7 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                     {isRoot ? "Root group" : `Nested group (depth ${depth})`}
                 </span>
 
-
+                {/* Delete group — not root */}
                 {!isRoot && (
                     <Button
                         variant="ghost"
@@ -110,12 +109,12 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                 )}
             </div>
 
-
+            {/* Group error */}
             {groupError && (
                 <p className="text-xs text-destructive mb-2 ml-4">{groupError.message}</p>
             )}
 
-
+            {/* Children — collapsible */}
             {!node.collapsed && (
                 <div>
                     <DndContext
@@ -137,7 +136,7 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                         </SortableContext>
                     </DndContext>
 
-
+                    {/* Add rule / Add group */}
                     <div className="flex gap-2 mt-2">
                         <Button
                             variant="outline"
