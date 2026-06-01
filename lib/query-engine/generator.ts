@@ -63,7 +63,7 @@ export function generateFullSQL(root: QueryGroup, schema: Schema, tableName: str
     return `SELECT * FROM ${tableName}\nWHERE ${where}`
 }
 
-// --- Mongo Generator ---
+
 function generateMongoRule(rule: QueryRule): Record<string, any> {
     switch (rule.operator) {
         case "equals":

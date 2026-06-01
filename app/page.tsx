@@ -241,7 +241,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="border-t border-border/60 px-6 py-5 text-center text-sm text-muted-foreground animate-in fade-in duration-700">
-        © {new Date().getFullYear()} QueryCraft
+        © {new Date().getFullYear()} QueryCraft by Donvictory ✌️
       </footer>
 
       <AnimatePresence>
