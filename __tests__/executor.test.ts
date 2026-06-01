@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest"
-import { executeQuery } from "@/lib/query-engine/executor"
-import { QueryGroup } from "@/lib/schema/type"
 import { MOCK_DATA } from "@/lib/schema/mock-data"
+import { QueryGroup } from "@/lib/schema/type"
+import { executeQuery } from "@/lib/query-engine/executor"
+import { describe, expect, it } from "vitest"
 
 const dataset = MOCK_DATA.users
 
