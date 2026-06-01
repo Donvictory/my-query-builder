@@ -86,7 +86,7 @@ export default function Home() {
           {/* Logo & Schema */}
           <div className="flex items-center gap-2.5">
             <h1 className="text-lg font-bold tracking-tight">
-              QueryCraft
+              <a href="/">QueryCraft</a>
             </h1>
             <span className="text-sm font-medium text-brand-primary dark:text-brand-accent bg-brand-primary/10 dark:bg-brand-primary/20 px-2 py-0.5 rounded-full border border-brand-primary/20 flex items-center gap-1 ml-1.5">
               <Database size={10} />
