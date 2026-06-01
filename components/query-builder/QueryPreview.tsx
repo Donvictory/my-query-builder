@@ -1,8 +1,9 @@
+// Live query preview panel - updates in real time as user builds query
 "use client"
 
 import { useState } from "react"
 import { useQueryStore } from "@/store/query-store"
-import { generateFullSQL, generateMongo } from "@/lib/query-engine/generator"
+import { generateMongo, generateFullSQL } from "@/lib/query-engine/generator"
 
 export function QueryPreview() {
   const [mode, setMode] = useState<"sql" | "mongo">("sql")
