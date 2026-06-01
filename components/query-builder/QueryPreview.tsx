@@ -19,7 +19,7 @@ export function QueryPreview() {
         Live query preview
       </p>
 
-      {/* Tabs */}
+
       <div className="flex gap-2 mb-3">
         {(["sql", "mongo"] as const).map((m) => (
           <button
@@ -35,7 +35,7 @@ export function QueryPreview() {
         ))}
       </div>
 
-      {/* Preview */}
+
       <pre className="text-xs font-mono bg-muted rounded-md p-3 overflow-auto max-h-64 whitespace-pre-wrap break-words">
         {mode === "sql" ? sql : mongo}
       </pre>

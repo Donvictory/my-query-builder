@@ -20,7 +20,7 @@ export function SchemaPanel() {
 
     return (
         <div className="border rounded-lg p-4 bg-background">
-            {/* Schema switcher */}
+
             <div className="mb-4">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                     Data source
@@ -41,7 +41,7 @@ export function SchemaPanel() {
                 </div>
             </div>
 
-            {/* Fields */}
+
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                 Schema fields
             </p>
@@ -59,7 +59,6 @@ export function SchemaPanel() {
                 ))}
             </div>
 
-            {/* Validation */}
             <div className="mt-4">
                 <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                     Validation
