@@ -1,3 +1,4 @@
+// Core TypeScript types for the query builder
 export type FieldType = "string" | "number" | "boolean" | "date" | "enum"
 
 export type Operator =
