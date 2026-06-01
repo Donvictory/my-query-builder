@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest"
-import { generateFullSQL, generateMongo } from "@/lib/query-engine/generator"
-import { QueryGroup, QueryRule } from "@/lib/schema/type"
 import { SCHEMAS } from "@/lib/schema/schemas"
+import { QueryGroup, QueryRule } from "@/lib/schema/type"
+import { generateMongo, generateFullSQL } from "@/lib/query-engine/generator"
 
 const schema = SCHEMAS.users
 
