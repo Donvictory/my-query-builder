@@ -74,7 +74,7 @@ interface QueryStore {
     isExecuting: boolean
     results: Record<string, any>[]
 
-    // Tree actions
+
     addRule: (parentId: string) => void
     addGroup: (parentId: string) => void
     removeNode: (nodeId: string) => void
@@ -83,32 +83,28 @@ interface QueryStore {
     toggleCollapse: (groupId: string) => void
     moveNode: (nodeId: string, targetParentId: string, newIndex: number) => void
 
-    // Schema actions
+
     setSchema: (schemaName: string) => void
 
-    // Query actions
+
     setResults: (results: Record<string, any>[]) => void
     setExecuting: (val: boolean) => void
     setValidationErrors: (errors: ValidationError[]) => void
     reset: () => void
 
-    // History actions
     undo: () => void
     redo: () => void
 
-    // Preset actions
     savePreset: (name: string) => void
     loadPreset: (presetId: string) => void
     deletePreset: (presetId: string) => void
 
-    // Import/Export
     importQuery: (root: QueryGroup) => void
 }
 
-// --- Store ---
 export const useQueryStore = create<QueryStore>()(
     persist(
-        immer((set, get) => ({
+        immer((set) => ({
             root: {
                 type: "group",
                 id: nanoid(),
@@ -125,7 +121,7 @@ export const useQueryStore = create<QueryStore>()(
             isExecuting: false,
             results: [],
 
-            // --- push current root to history before mutation ---
+
             addRule: (parentId) =>
                 set((state) => {
                     findAndMutate(state.root, parentId, (node) => {
@@ -154,7 +150,7 @@ export const useQueryStore = create<QueryStore>()(
                     findAndMutate(state.root, nodeId, (node) => {
                         if (node.type === "rule") {
                             Object.assign(node, patch)
-                            // reset value when field changes
+
                             if (patch.field) {
                                 node.value = ""
                                 node.operator = "equals"
