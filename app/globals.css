@@ -46,75 +46,108 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Redesigned QueryCraft Theme Tokens */
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-border: var(--brand-border);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --color-grid-color: var(--grid-color);
+  
+  --color-depth-0: var(--depth-0);
+  --color-depth-1: var(--depth-1);
+  --color-depth-2: var(--depth-2);
+  --color-depth-3: var(--depth-3);
+  --color-depth-4: var(--depth-4);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.99 0.005 240);
+  --foreground: oklch(0.18 0.02 240);
+  
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.18 0.02 240);
+  
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --popover-foreground: oklch(0.18 0.02 240);
+  
+  --primary: oklch(0.48 0.18 250);
+  --primary-foreground: oklch(0.99 0.005 240);
+  
+  --secondary: oklch(0.96 0.01 240);
+  --secondary-foreground: oklch(0.3 0.05 240);
+  
+  --muted: oklch(0.96 0.01 240);
+  --muted-foreground: oklch(0.45 0.02 240);
+  
+  --accent: oklch(0.94 0.02 250);
+  --accent-foreground: oklch(0.48 0.18 250);
+  
+  --destructive: oklch(0.55 0.18 25);
+  --border: oklch(0.92 0.01 240);
+  --input: oklch(0.92 0.01 240);
+  --ring: oklch(0.7 0.1 250);
+  
+  --radius: 0.5rem;
+  
+  /* Brand Tokens - Premium Light Theme */
+  --brand-primary: oklch(0.52 0.19 255); /* Elegant Royal Purple/Indigo */
+  --brand-accent: oklch(0.62 0.16 220);  /* Soft Teal/Blue */
+  --brand-border: oklch(0.90 0.02 240);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(226, 232, 240, 0.8);
+  --grid-color: rgba(99, 102, 241, 0.035);
+
+  /* Depth Line Colors */
+  --depth-0: oklch(0.52 0.19 255); /* Indigo */
+  --depth-1: oklch(0.60 0.18 300); /* Amethyst Purple */
+  --depth-2: oklch(0.75 0.15 45);   /* Amber Gold */
+  --depth-3: oklch(0.62 0.17 150);  /* Mint Emerald */
+  --depth-4: oklch(0.65 0.20 340);  /* Rose Quartz */
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: oklch(0.12 0.015 245); /* Sleek Deep Slate Blue */
+  --foreground: oklch(0.96 0.01 240);
+  
+  --card: oklch(0.15 0.02 245);
+  --card-foreground: oklch(0.96 0.01 240);
+  
+  --popover: oklch(0.15 0.02 245);
+  --popover-foreground: oklch(0.96 0.01 240);
+  
+  --primary: oklch(0.62 0.16 250);
+  --primary-foreground: oklch(0.12 0.015 245);
+  
+  --secondary: oklch(0.19 0.02 245);
+  --secondary-foreground: oklch(0.85 0.02 240);
+  
+  --muted: oklch(0.19 0.02 245);
+  --muted-foreground: oklch(0.6 0.02 240);
+  
+  --accent: oklch(0.22 0.04 250);
+  --accent-foreground: oklch(0.62 0.16 250);
+  
+  --destructive: oklch(0.48 0.16 25);
+  --border: oklch(0.22 0.02 245);
+  --input: oklch(0.22 0.02 245);
+  --ring: oklch(0.55 0.12 250);
+
+  /* Brand Tokens - Premium Dark Theme */
+  --brand-primary: oklch(0.68 0.15 250);
+  --brand-accent: oklch(0.72 0.13 220);
+  --brand-border: oklch(0.22 0.02 245);
+  --glass-bg: rgba(19, 25, 38, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --grid-color: rgba(99, 102, 241, 0.02);
+
+  /* Depth Line Colors - Glowing Accents */
+  --depth-0: oklch(0.68 0.15 250);
+  --depth-1: oklch(0.74 0.14 290);
+  --depth-2: oklch(0.82 0.12 60);
+  --depth-3: oklch(0.75 0.13 160);
+  --depth-4: oklch(0.76 0.15 345);
 }
 
 @layer base {
@@ -122,9 +155,61 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased selection:bg-brand-primary/20 transition-colors duration-300;
+    background-image: 
+      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
   html {
     @apply font-sans;
+    font-size: 13.5px; /* High content-density */
   }
+}
+
+/* Custom premium styles */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+}
+
+.dark .glass-panel {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Glow animations */
+@keyframes accent-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(99, 102, 241, 0.22);
+  }
+}
+
+.glowing-active {
+  animation: accent-glow 3s infinite;
+}
+
+/* Make native dropdown backgrounds black and texts white inside dark mode */
+.dark select option {
+  background-color: #000000;
+  color: #ffffff;
 }
