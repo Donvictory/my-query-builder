@@ -86,7 +86,7 @@ export default function Home() {
             <h1 className="text-lg font-bold tracking-tight">
               QueryCraft
             </h1>
-            <span className="text-[10px] font-bold text-brand-primary dark:text-brand-accent bg-brand-primary/10 dark:bg-brand-primary/20 px-2 py-0.5 rounded-full border border-brand-primary/20 flex items-center gap-1 ml-1.5">
+            <span className="text-sm font-bold text-brand-primary dark:text-brand-accent bg-brand-primary/10 dark:bg-brand-primary/20 px-2 py-0.5 rounded-full border border-brand-primary/20 flex items-center gap-1 ml-1.5">
               <Database size={10} />
               {selectedSchema}
             </span>
@@ -119,7 +119,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-7 px-2.5 text-xs font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                className="h-7 px-2.5 text-sm font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
                 onClick={() => setShowPresets(true)}
               >
                 <Bookmark size={12} className="text-brand-primary" />
@@ -129,7 +129,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-7 px-2.5 text-xs font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                className="h-7 px-2.5 text-sm font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
                 onClick={() => setShowImport(true)}
               >
                 <Upload size={12} />
@@ -139,7 +139,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-7 px-2.5 text-xs font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                className="h-7 px-2.5 text-sm font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
                 onClick={exportQuery}
               >
                 <Download size={12} />
@@ -149,7 +149,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-7 px-2.5 text-xs font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
+                className="h-7 px-2.5 text-sm font-medium gap-1.5 bg-background border-border/80 hover:bg-muted text-muted-foreground hover:text-foreground"
                 onClick={() => setShowHistory(true)}
               >
                 <History size={12} />
@@ -197,7 +197,7 @@ export default function Home() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 text-xs justify-start gap-2 text-muted-foreground hover:text-foreground"
+                className="h-8 text-sm justify-start gap-2 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   undo()
                   setMobileMenuOpen(false)
@@ -208,7 +208,7 @@ export default function Home() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-8 text-xs justify-start gap-2 text-muted-foreground hover:text-foreground"
+                className="h-8 text-sm justify-start gap-2 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   redo()
                   setMobileMenuOpen(false)
@@ -222,7 +222,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 text-xs justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
+                className="h-8 text-sm justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   setShowPresets(true)
                   setMobileMenuOpen(false)
@@ -233,7 +233,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 text-xs justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
+                className="h-8 text-sm justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   setShowImport(true)
                   setMobileMenuOpen(false)
@@ -244,7 +244,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 text-xs justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
+                className="h-8 text-sm justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   exportQuery()
                   setMobileMenuOpen(false)
@@ -255,7 +255,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 text-xs justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
+                className="h-8 text-sm justify-start gap-2 bg-background border-border/80 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   setShowHistory(true)
                   setMobileMenuOpen(false)
@@ -275,7 +275,7 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="w-full max-w-md glass-panel rounded-xl overflow-hidden shadow-2xl border bg-card text-card-foreground animate-in zoom-in-95 duration-200">
             <div className="px-4 py-3 border-b flex items-center justify-between bg-muted/20">
-              <h2 className="text-xs font-semibold flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold flex items-center gap-1.5">
                 <FileJson size={14} className="text-brand-primary" />
                 Import JSON
               </h2>
@@ -287,20 +287,20 @@ export default function Home() {
               <textarea
                 value={importText}
                 onChange={(e) => setImportText(e.target.value)}
-                className="w-full h-40 text-xs font-mono border border-border/80 rounded-lg p-2.5 bg-background resize-none focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary custom-scrollbar"
+                className="w-full h-40 text-sm font-mono border border-border/80 rounded-lg p-2.5 bg-background resize-none focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary custom-scrollbar"
                 placeholder='{ "type": "group", "logic": "AND", "children": [...] }'
               />
               {importError && (
-                <div className="text-[11px] text-destructive bg-destructive/5 border border-destructive/20 rounded-md px-2.5 py-1.5 mt-2 font-medium">
+                <div className="text-sm text-destructive bg-destructive/5 border border-destructive/20 rounded-md px-2.5 py-1.5 mt-2 font-medium">
                   {importError}
                 </div>
               )}
             </div>
             <div className="px-4 py-3 border-t bg-muted/10 flex items-center justify-end gap-2">
-              <Button size="sm" variant="ghost" className="h-8 text-xs font-medium" onClick={() => setShowImport(false)}>
+              <Button size="sm" variant="ghost" className="h-8 text-sm font-medium" onClick={() => setShowImport(false)}>
                 Cancel
               </Button>
-              <Button size="sm" className="h-8 text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-sm" onClick={handleImport}>
+              <Button size="sm" className="h-8 text-sm font-medium bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-sm" onClick={handleImport}>
                 Import
               </Button>
             </div>
@@ -313,7 +313,7 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="w-full max-w-md glass-panel rounded-xl overflow-hidden shadow-2xl border bg-card text-card-foreground animate-in zoom-in-95 duration-200">
             <div className="px-4 py-3 border-b flex items-center justify-between bg-muted/20">
-              <h2 className="text-xs font-semibold flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold flex items-center gap-1.5">
                 <Bookmark size={14} className="text-brand-primary" />
                 Saved presets
               </h2>
@@ -327,11 +327,11 @@ export default function Home() {
                   value={presetName}
                   onChange={(e) => setPresetName(e.target.value)}
                   placeholder="Preset name..."
-                  className="flex-1 text-xs border border-border/80 rounded-lg px-3 py-1.5 bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary h-8"
+                  className="flex-1 text-sm border border-border/80 rounded-lg px-3 py-1.5 bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary h-8"
                 />
                 <Button
                   size="sm"
-                  className="h-8 text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-sm gap-1"
+                  className="h-8 text-sm font-medium bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-sm gap-1"
                   onClick={() => {
                     if (presetName.trim()) {
                       savePreset(presetName.trim())
@@ -345,7 +345,7 @@ export default function Home() {
 
               <div className="border border-border/60 rounded-lg overflow-hidden bg-muted/5 max-h-48 overflow-y-auto custom-scrollbar">
                 {presets.length === 0 ? (
-                  <div className="py-8 text-center text-[11px] text-muted-foreground">
+                  <div className="py-8 text-center text-sm text-muted-foreground">
                     No presets saved yet
                   </div>
                 ) : (
@@ -353,8 +353,8 @@ export default function Home() {
                     {presets.map((p) => (
                       <div key={p.id} className="flex items-center justify-between px-3 py-2 hover:bg-muted/30 transition-colors">
                         <div className="flex flex-col gap-0.5 max-w-[65%]">
-                          <span className="text-xs font-semibold truncate text-foreground">{p.name}</span>
-                          <span className="text-[9px] text-muted-foreground font-mono">
+                          <span className="text-sm font-semibold truncate text-foreground">{p.name}</span>
+                          <span className="text-sm text-muted-foreground font-mono">
                             {new Date(p.createdAt).toLocaleDateString()}
                           </span>
                         </div>
@@ -362,7 +362,7 @@ export default function Home() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="h-6 text-[10px] px-2.5 font-semibold text-brand-primary border-brand-primary/20 hover:bg-brand-primary/5 hover:text-brand-primary"
+                            className="h-6 text-sm px-2.5 font-semibold text-brand-primary border-brand-primary/20 hover:bg-brand-primary/5 hover:text-brand-primary"
                             onClick={() => {
                               loadPreset(p.id)
                               setShowPresets(false)
@@ -373,7 +373,7 @@ export default function Home() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            className="h-6 text-xs px-2 text-destructive hover:bg-destructive/5"
+                            className="h-6 text-sm px-2 text-destructive hover:bg-destructive/5"
                             onClick={() => deletePreset(p.id)}
                           >
                             Delete
@@ -386,7 +386,7 @@ export default function Home() {
               </div>
             </div>
             <div className="px-4 py-2 border-t bg-muted/5 flex items-center justify-end">
-              <Button size="sm" variant="ghost" className="h-8 text-xs font-medium" onClick={() => setShowPresets(false)}>
+              <Button size="sm" variant="ghost" className="h-8 text-sm font-medium" onClick={() => setShowPresets(false)}>
                 Close
               </Button>
             </div>
@@ -399,7 +399,7 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="w-full max-w-md glass-panel rounded-xl overflow-hidden shadow-2xl border bg-card text-card-foreground animate-in zoom-in-95 duration-200">
             <div className="px-4 py-3 border-b flex items-center justify-between bg-muted/20">
-              <h2 className="text-xs font-semibold flex items-center gap-1.5">
+              <h2 className="text-sm font-semibold flex items-center gap-1.5">
                 <History size={14} className="text-brand-primary" />
                 Query history
               </h2>
@@ -410,7 +410,7 @@ export default function Home() {
             <div className="p-4">
               <div className="border border-border/60 rounded-lg overflow-hidden bg-muted/5 max-h-56 overflow-y-auto custom-scrollbar">
                 {history.length === 0 ? (
-                  <div className="py-10 text-center text-[11px] text-muted-foreground">
+                  <div className="py-10 text-center text-sm text-muted-foreground">
                     No history yet — execute a query to start tracking
                   </div>
                 ) : (
@@ -421,10 +421,10 @@ export default function Home() {
                         className="flex items-center justify-between px-3.5 py-2.5 hover:bg-muted/30 transition-colors"
                       >
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-xs font-semibold text-foreground">
+                          <span className="text-sm font-semibold text-foreground">
                             Query {history.length - i}
                           </span>
-                          <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                          <span className="text-sm text-muted-foreground flex items-center gap-1">
                             <span className={`h-1.5 w-1.5 rounded-full ${h.logic === "AND" ? "bg-blue-400" : "bg-amber-400"}`} />
                             {h.children.length} condition{h.children.length !== 1 ? "s" : ""} — {h.logic}
                           </span>
@@ -432,7 +432,7 @@ export default function Home() {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="h-6.5 text-[10px] font-semibold"
+                          className="h-6.5 text-sm font-semibold"
                           onClick={() => {
                             importQuery(JSON.parse(JSON.stringify(h)))
                             setShowHistory(false)
@@ -447,7 +447,7 @@ export default function Home() {
               </div>
             </div>
             <div className="px-4 py-2 border-t bg-muted/5 flex items-center justify-end">
-              <Button size="sm" variant="ghost" className="h-8 text-xs font-medium" onClick={() => setShowHistory(false)}>
+              <Button size="sm" variant="ghost" className="h-8 text-sm font-medium" onClick={() => setShowHistory(false)}>
                 Close
               </Button>
             </div>
@@ -467,7 +467,7 @@ export default function Home() {
             {/* Box Header */}
             <div className="px-4 py-3 bg-muted/20 border-b border-border/50 flex items-center justify-between flex-wrap gap-2.5">
               <div className="flex items-center gap-1.5">
-                <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
+                <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">
                   Query builder
                 </h2>
               </div>
@@ -475,18 +475,18 @@ export default function Home() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-7 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
+                  className="h-7 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted"
                   onClick={reset}
                 >
                   <RotateCcw size={11} className="mr-1" /> Reset
                 </Button>
                 <Button
                   size="sm"
-                  className="h-7 text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-xs px-3.5 gap-1.5 glowing-active"
+                  className="h-7 text-sm font-bold bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200 shadow-xs px-3.5 gap-1.5 glowing-active"
                   onClick={execute}
                 >
                   <Play size={11} fill="currentColor" /> Execute
-                  <span className="text-xs opacity-60 ml-1 hidden sm:inline font-mono">Ctrl+↵</span>
+                  <span className="text-sm opacity-60 ml-1 hidden sm:inline font-mono">Ctrl+↵</span>
                 </Button>
               </div>
             </div>

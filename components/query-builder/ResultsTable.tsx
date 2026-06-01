@@ -53,7 +53,7 @@ function renderStatusPill(status: string) {
     }
 
     return (
-        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${styles} shadow-3xs`}>
+        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-sm font-bold border ${styles} shadow-3xs`}>
             <span className={`h-1 w-1 rounded-full ${dot}`} />
             {status}
         </span>
@@ -73,13 +73,13 @@ export function ResultsTable() {
             <div className="px-4 py-3 border-b border-border/50 bg-muted/20 flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
                     <Table size={14} className="text-brand-accent animate-pulse" />
-                    <h2 className="text-xs font-bold text-foreground uppercase tracking-wider">
+                    <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">
                         Results
                     </h2>
                 </div>
                 
                 {!isExecuting && (
-                    <span className="text-[10px] font-bold bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-sm font-bold bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                         {results.length} row{results.length !== 1 ? "s" : ""} matched
                     </span>
                 )}
@@ -92,7 +92,7 @@ export function ResultsTable() {
                         <Loader2 size={24} className="animate-spin text-brand-primary" />
                         <span className="absolute inset-0 rounded-full bg-brand-primary/10 blur-md animate-ping" />
                     </div>
-                    <p className="text-xs font-semibold text-muted-foreground tracking-wide">
+                    <p className="text-sm font-semibold text-muted-foreground tracking-wide">
                         Executing query...
                     </p>
                 </div>
@@ -102,20 +102,20 @@ export function ResultsTable() {
                         <Table size={16} />
                     </div>
                     <div>
-                        <p className="text-xs font-semibold text-foreground">
+                        <p className="text-sm font-semibold text-foreground">
                             No results yet — execute a query to see matches
                         </p>
                     </div>
                 </div>
             ) : (
                 <div className="overflow-x-auto max-h-80 custom-scrollbar">
-                    <table className="w-full text-xs text-left border-collapse">
+                    <table className="w-full text-sm text-left border-collapse">
                         <thead>
                             <tr className="border-b border-border bg-muted/10 sticky top-0 backdrop-blur-xs z-10">
                                 {columns.map((col) => (
                                     <th
                                         key={col}
-                                        className="py-2.5 px-3.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider"
+                                        className="py-2.5 px-3.5 text-sm font-bold text-muted-foreground uppercase tracking-wider"
                                     >
                                         <div className="flex items-center gap-1.5">
                                             {getColumnIcon(col)}

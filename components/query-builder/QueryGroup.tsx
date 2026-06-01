@@ -112,7 +112,7 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                 {/* AND/OR Interactive Logic Pill */}
                 <button
                     onClick={() => toggleLogic(node.id)}
-                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-md border tracking-wider transition-all duration-200 cursor-pointer shadow-2xs hover:scale-[1.02] active:scale-[0.98] ${
+                    className={`text-sm font-bold px-2.5 py-0.5 rounded-md border tracking-wider transition-all duration-200 cursor-pointer shadow-2xs hover:scale-[1.02] active:scale-[0.98] ${
                         node.logic === "AND"
                             ? "bg-blue-50/70 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border-blue-200/80 dark:border-blue-900/60"
                             : "bg-amber-50/70 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border-amber-200/80 dark:border-amber-900/60"
@@ -121,13 +121,13 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                     {node.logic}
                 </button>
 
-                <span className="text-[10px] font-semibold text-muted-foreground">
+                <span className="text-sm font-semibold text-muted-foreground">
                     {isRoot ? "Root group" : `Nested group (depth ${depth})`}
                 </span>
 
                 {/* Validation Error banner inside group header */}
                 {groupError && (
-                    <span className="text-[10px] text-destructive font-medium bg-destructive/10 dark:bg-destructive/20 border border-destructive/20 rounded-md px-2 py-0.5 animate-pulse ml-2">
+                    <span className="text-sm text-destructive font-medium bg-destructive/10 dark:bg-destructive/20 border border-destructive/20 rounded-md px-2 py-0.5 animate-pulse ml-2">
                         {groupError.message}
                     </span>
                 )}
@@ -183,7 +183,7 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="h-7 text-[11px] font-medium gap-1 bg-background hover:bg-muted border-border/80 text-muted-foreground hover:text-foreground transition-all"
+                                className="h-7 text-sm font-medium gap-1 bg-background hover:bg-muted border-border/80 text-muted-foreground hover:text-foreground transition-all"
                                 onClick={() => addRule(node.id)}
                             >
                                 <Plus size={11} className="text-brand-primary" /> Add rule
@@ -191,7 +191,7 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="h-7 text-[11px] font-medium gap-1 bg-background hover:bg-muted border-border/80 text-muted-foreground hover:text-foreground transition-all"
+                                className="h-7 text-sm font-medium gap-1 bg-background hover:bg-muted border-border/80 text-muted-foreground hover:text-foreground transition-all"
                                 onClick={() => addGroup(node.id)}
                             >
                                 <Layers size={11} className="text-brand-accent" /> Add group

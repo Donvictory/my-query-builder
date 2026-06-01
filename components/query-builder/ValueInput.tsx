@@ -23,15 +23,15 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
                     type="number"
                     value={val[0]}
                     onChange={(e) => onChange([e.target.value, val[1]])}
-                    className="w-18 h-7 text-xs px-2 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium"
+                    className="w-18 h-7 text-sm px-2 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium"
                     placeholder="min"
                 />
-                <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider px-0.5">to</span>
+                <span className="text-sm text-muted-foreground font-semibold uppercase tracking-wider px-0.5">to</span>
                 <input
                     type="number"
                     value={val[1]}
                     onChange={(e) => onChange([val[0], e.target.value])}
-                    className="w-18 h-7 text-xs px-2 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium"
+                    className="w-18 h-7 text-sm px-2 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium"
                     placeholder="max"
                 />
             </div>
@@ -48,7 +48,7 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
                     onChange={(e) =>
                         onChange(e.target.value.split(",").map((v) => v.trim()))
                     }
-                    className="w-full h-7 text-xs px-2.5 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium"
+                    className="w-full h-7 text-sm px-2.5 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium"
                     placeholder="val1, val2, val3..."
                 />
             </div>
@@ -62,17 +62,17 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
                     type="number"
                     value={value ?? ""}
                     onChange={(e) => onChange(e.target.value)}
-                    className="w-24 h-7 text-xs px-2.5 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium animate-fade-in"
+                    className="w-24 h-7 text-sm px-2.5 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-medium animate-fade-in"
                 />
             )
 
         case "boolean":
             return (
-                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-xs text-foreground w-20 transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary animate-fade-in">
+                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground w-20 transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary animate-fade-in">
                     <select
                         value={String(value)}
                         onChange={(e) => onChange(e.target.value === "true")}
-                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-xs w-full font-semibold focus:outline-none cursor-pointer"
+                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-semibold focus:outline-none cursor-pointer"
                     >
                         <option value="true">true</option>
                         <option value="false">false</option>
@@ -85,11 +85,11 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
 
         case "enum":
             return (
-                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-xs text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary animate-fade-in">
+                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary animate-fade-in">
                     <select
                         value={value ?? ""}
                         onChange={(e) => onChange(e.target.value)}
-                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-xs w-full font-semibold focus:outline-none cursor-pointer"
+                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-semibold focus:outline-none cursor-pointer"
                     >
                         <option value="">Select...</option>
                         {fieldDef.enumValues?.map((v) => (
@@ -111,7 +111,7 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
                         type="date"
                         value={value ?? ""}
                         onChange={(e) => onChange(e.target.value)}
-                        className="w-full h-7 text-xs pl-2.5 pr-7 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-semibold"
+                        className="w-full h-7 text-sm pl-2.5 pr-7 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-semibold"
                     />
                 </div>
             )
@@ -122,7 +122,7 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
                     type="text"
                     value={value ?? ""}
                     onChange={(e) => onChange(e.target.value)}
-                    className="w-36 h-7 text-xs px-2.5 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-semibold animate-fade-in"
+                    className="w-36 h-7 text-sm px-2.5 border border-border/80 hover:border-border rounded-lg bg-background focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary font-semibold animate-fade-in"
                     placeholder="value..."
                 />
             )

@@ -58,11 +58,11 @@ export function QueryRule({ node, parentId }: Props) {
                 </button>
 
                 {/* Styled Field Selector Dropdown */}
-                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-xs text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
+                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
                     <select
                         value={node.field}
                         onChange={(e) => updateRule(node.id, { field: e.target.value })}
-                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-xs w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
+                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
                     >
                         {Object.values(schema).map((f) => (
                             <option key={f.key} value={f.key}>
@@ -76,11 +76,11 @@ export function QueryRule({ node, parentId }: Props) {
                 </div>
 
                 {/* Styled Operator Selector Dropdown */}
-                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-xs text-foreground min-w-[130px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
+                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[130px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
                     <select
                         value={node.operator}
                         onChange={(e) => updateRule(node.id, { operator: e.target.value as any })}
-                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-xs w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
+                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
                     >
                         {availableOperators.map((op) => (
                             <option key={op} value={op}>
@@ -117,7 +117,7 @@ export function QueryRule({ node, parentId }: Props) {
 
             {/* Structured validation warning bar */}
             {error && (
-                <div className="flex items-center gap-1 text-[10px] text-destructive font-medium pl-6 py-0.5 animate-fade-in">
+                <div className="flex items-center gap-1 text-sm text-destructive font-medium pl-6 py-0.5 animate-fade-in">
                     <AlertCircle size={10} />
                     <span>{error.message}</span>
                 </div>
