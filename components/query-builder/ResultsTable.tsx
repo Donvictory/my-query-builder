@@ -3,9 +3,10 @@
 import { useQueryStore } from "@/store/query-store"
 
 export function ResultsTable() {
-    const schema = useQueryStore((s) => s.schema)
     const results = useQueryStore((s) => s.results)
+    const schema = useQueryStore((s) => s.schema)
     const isExecuting = useQueryStore((s) => s.isExecuting)
+
     const columns = Object.keys(schema)
 
     if (isExecuting) {
@@ -66,10 +67,10 @@ export function ResultsTable() {
                                             {col === "status" ? (
                                                 <span
                                                     className={`px-2 py-0.5 rounded-full text-xs font-medium ${row[col] === "active"
-                                                        ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300"
-                                                        : row[col] === "inactive"
-                                                            ? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
-                                                            : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
+                                                            ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300"
+                                                            : row[col] === "inactive"
+                                                                ? "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400"
+                                                                : "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
                                                         }`}
                                                 >
                                                     {String(row[col])}
@@ -77,8 +78,8 @@ export function ResultsTable() {
                                             ) : typeof row[col] === "boolean" ? (
                                                 <span
                                                     className={`px-2 py-0.5 rounded-full text-xs ${row[col]
-                                                        ? "bg-green-100 text-green-700"
-                                                        : "bg-red-100 text-red-700"
+                                                            ? "bg-green-100 text-green-700"
+                                                            : "bg-red-100 text-red-700"
                                                         }`}
                                                 >
                                                     {String(row[col])}

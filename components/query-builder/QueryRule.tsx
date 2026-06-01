@@ -14,7 +14,7 @@ interface Props {
     parentId: string
 }
 
-export function QueryRule({ node }: Props) {
+export function QueryRule({ node, parentId }: Props) {
     const schema = useQueryStore((s) => s.schema)
     const updateRule = useQueryStore((s) => s.updateRule)
     const removeNode = useQueryStore((s) => s.removeNode)
@@ -42,7 +42,7 @@ export function QueryRule({ node }: Props) {
     return (
         <div ref={setNodeRef} style={style} className="flex flex-col gap-1 mb-2">
             <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
-
+                {/* Drag handle */}
                 <button
                     {...attributes}
                     {...listeners}
@@ -51,7 +51,7 @@ export function QueryRule({ node }: Props) {
                     <GripVertical size={14} />
                 </button>
 
-
+                {/* Field selector */}
                 <select
                     value={node.field}
                     onChange={(e) => updateRule(node.id, { field: e.target.value })}
@@ -64,7 +64,7 @@ export function QueryRule({ node }: Props) {
                     ))}
                 </select>
 
-
+                {/* Operator selector */}
                 <select
                     value={node.operator}
                     onChange={(e) => updateRule(node.id, { operator: e.target.value as any })}
