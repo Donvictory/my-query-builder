@@ -2,7 +2,7 @@
 
 import { useQueryStore } from "@/store/query-store"
 import { SCHEMA_NAMES } from "@/lib/schema/schemas"
-import { validateTree } from "@/lib/query-engine/validator"
+
 
 const TYPE_COLORS: Record<string, string> = {
     string: "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
@@ -16,10 +16,7 @@ export function SchemaPanel() {
     const schema = useQueryStore((s) => s.schema)
     const selectedSchema = useQueryStore((s) => s.selectedSchema)
     const setSchema = useQueryStore((s) => s.setSchema)
-    const root = useQueryStore((s) => s.root)
-    const setValidationErrors = useQueryStore((s) => s.setValidationErrors)
-
-    const errors = validateTree(root, schema)
+    const errors = useQueryStore((s) => s.validationErrors)
 
     return (
         <div className="border rounded-lg p-4 bg-background">

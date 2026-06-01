@@ -41,7 +41,7 @@ export function QueryRule({ node, parentId }: Props) {
 
     return (
         <div ref={setNodeRef} style={style} className="flex flex-col gap-1 mb-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
                 {/* Drag handle */}
                 <button
                     {...attributes}
@@ -55,7 +55,7 @@ export function QueryRule({ node, parentId }: Props) {
                 <select
                     value={node.field}
                     onChange={(e) => updateRule(node.id, { field: e.target.value })}
-                    className="h-7 text-xs border rounded-md px-2 bg-background"
+                    className="h-7 text-xs border rounded-md px-2 bg-background max-w-[100px] sm:max-w-none"
                 >
                     {Object.values(schema).map((f) => (
                         <option key={f.key} value={f.key}>
@@ -68,7 +68,7 @@ export function QueryRule({ node, parentId }: Props) {
                 <select
                     value={node.operator}
                     onChange={(e) => updateRule(node.id, { operator: e.target.value as any })}
-                    className="h-7 text-xs border rounded-md px-2 bg-background"
+                    className="h-7 text-xs border rounded-md px-2 bg-background max-w-[110px] sm:max-w-none"
                 >
                     {availableOperators.map((op) => (
                         <option key={op} value={op}>

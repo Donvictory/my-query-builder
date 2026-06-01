@@ -45,7 +45,7 @@ export default function Home() {
   const [importText, setImportText] = useState("")
   const [importError, setImportError] = useState("")
 
-  // Dark mode toggle
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark")
@@ -54,7 +54,7 @@ export default function Home() {
     }
   }, [darkMode])
 
-  // Keyboard shortcuts
+
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
       if (e.ctrlKey && e.key === "Enter") handleExecute()
@@ -107,38 +107,29 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Top bar */}
-      <header className="border-b px-6 py-3 flex items-center justify-between sticky top-0 bg-background z-10">
-        <div className="flex items-center gap-3">
+
+      <header className="border-b px-4 py-3 flex items-center justify-between sticky top-0 bg-background z-10">
+        <div className="flex items-center gap-2">
           <h1 className="text-base font-semibold">QueryCraft</h1>
           <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full">
             {selectedSchema}
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="h-8 text-xs gap-1" onClick={handleExport}>
-            <Download size={13} /> Export
+        <div className="flex items-center gap-1">
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={handleExport}>
+            <Download size={13} />
           </Button>
-
-          <Button variant="outline" size="sm" className="h-8 text-xs gap-1" onClick={() => setShowImport(!showImport)}>
-            <Upload size={13} /> Import
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setShowImport(!showImport)}>
+            <Upload size={13} />
           </Button>
-
-          <Button variant="outline" size="sm" className="h-8 text-xs gap-1" onClick={() => setShowPresets(!showPresets)}>
-            <Bookmark size={13} /> Presets
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setShowPresets(!showPresets)}>
+            <Bookmark size={13} />
           </Button>
-
-          <Button variant="outline" size="sm" className="h-8 text-xs gap-1" onClick={undo}>
-            <History size={13} /> Undo
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={undo}>
+            <History size={13} />
           </Button>
-
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8"
-            onClick={() => setDarkMode(!darkMode)}
-          >
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? <Sun size={13} /> : <Moon size={13} />}
           </Button>
         </div>
@@ -219,13 +210,13 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main layout */}
-      <main className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 p-6 max-w-7xl mx-auto">
-        {/* Left column */}
+
+      <main className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 p-3 sm:p-6 max-w-7xl mx-auto w-full">
+
         <div className="flex flex-col gap-4">
-          {/* Query builder */}
-          <div className="border rounded-lg p-4 bg-background">
-            <div className="flex items-center justify-between mb-4">
+
+          <div className="border rounded-lg p-3 sm:p-4 bg-background">
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                 Query builder
               </p>
@@ -244,7 +235,7 @@ export default function Home() {
                   onClick={handleExecute}
                 >
                   <Play size={12} /> Execute
-                  <span className="text-xs opacity-60 ml-1">Ctrl+↵</span>
+                  <span className="text-xs opacity-60 ml-1 hidden sm:inline">Ctrl+↵</span>
                 </Button>
               </div>
             </div>
@@ -252,12 +243,11 @@ export default function Home() {
             <QueryGroup node={root} depth={0} isRoot={true} />
           </div>
 
-          {/* Results */}
+
           <ResultsTable />
         </div>
 
-        {/* Right column */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 lg:order-last">
           <QueryPreview />
           <SchemaPanel />
         </div>
