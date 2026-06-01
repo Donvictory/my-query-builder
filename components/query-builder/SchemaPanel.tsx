@@ -38,6 +38,7 @@ export function SchemaPanel() {
     const selectedSchema = useQueryStore((s) => s.selectedSchema)
     const setSchema = useQueryStore((s) => s.setSchema)
     const errors = useQueryStore((s) => s.validationErrors)
+    const hasExecuted = useQueryStore((s) => s.hasExecuted)
 
     return (
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-xs flex flex-col gap-4.5">
@@ -101,7 +102,11 @@ export function SchemaPanel() {
                     </h3>
                 </div>
 
-                {errors.length === 0 ? (
+                {!hasExecuted ? (
+                    <p className="text-sm text-muted-foreground/60 italic">
+                        Run a query to see validation results.
+                    </p>
+                ) : errors.length === 0 ? (
                     <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3 flex items-start gap-2.5 animate-fade-in shadow-3xs">
                         <CheckCircle size={15} className="text-emerald-500 shrink-0 mt-0.5 animate-pulse" />
                         <div>

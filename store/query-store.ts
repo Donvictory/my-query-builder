@@ -71,9 +71,11 @@ interface QueryStore {
     history: QueryGroup[]
     historyIndex: number
     validationErrors: ValidationError[]
+    hasExecuted: boolean
     isExecuting: boolean
     results: Record<string, any>[]
-
+    darkMode: boolean
+    toggleDarkMode: () => void
 
     addRule: (parentId: string) => void
     addGroup: (parentId: string) => void
@@ -118,9 +120,18 @@ export const useQueryStore = create<QueryStore>()(
             history: [],
             historyIndex: -1,
             validationErrors: [],
+            hasExecuted: false,
             isExecuting: false,
             results: [],
+            darkMode: false,
 
+            toggleDarkMode: () =>
+                set((state) => {
+                    state.darkMode = !state.darkMode
+                    if (typeof document !== "undefined") {
+                        document.documentElement.classList.toggle("dark", state.darkMode)
+                    }
+                }),
 
             addRule: (parentId) =>
                 set((state) => {
@@ -201,6 +212,7 @@ export const useQueryStore = create<QueryStore>()(
                     }
                     state.results = []
                     state.validationErrors = []
+                    state.hasExecuted = false
                 }),
 
             setResults: (results) =>
@@ -216,6 +228,7 @@ export const useQueryStore = create<QueryStore>()(
             setValidationErrors: (errors) =>
                 set((state) => {
                     state.validationErrors = errors
+                    state.hasExecuted = true
                 }),
 
             reset: () =>
@@ -229,6 +242,7 @@ export const useQueryStore = create<QueryStore>()(
                     }
                     state.results = []
                     state.validationErrors = []
+                    state.hasExecuted = false
                 }),
 
             undo: () =>
@@ -284,12 +298,16 @@ export const useQueryStore = create<QueryStore>()(
                 presets: state.presets,
                 selectedSchema: state.selectedSchema,
                 root: state.root,
+                darkMode: state.darkMode,
             }),
             onRehydrateStorage: () => (state) => {
                 if (state) {
                     state.results = []
                     state.isExecuting = false
                     state.validationErrors = []
+                    if (typeof document !== "undefined") {
+                        document.documentElement.classList.toggle("dark", state.darkMode)
+                    }
                 }
             },
         }

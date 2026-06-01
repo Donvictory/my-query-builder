@@ -39,80 +39,80 @@ export function QueryRule({ node, parentId }: Props) {
     }
 
     return (
-        <div 
-            ref={setNodeRef} 
-            style={style} 
-            className={`group/rule flex flex-col gap-1 mb-2.5 p-2 rounded-lg border border-border/40 bg-card/60 dark:bg-card/30 hover:bg-card hover:border-border/80 dark:hover:bg-card/50 transition-all duration-200 ${
-                isDragging ? "shadow-md scale-[1.01] border-brand-primary/40 bg-muted/40" : ""
-            }`}
+        <div
+            ref={setNodeRef}
+            style={style}
+            className={`group/rule flex flex-col gap-1 mb-2.5 p-2 rounded-lg border border-border/40 bg-card/60 dark:bg-card/30 hover:bg-card hover:border-border/80 dark:hover:bg-card/50 transition-all duration-200 ${isDragging ? "shadow-md scale-[1.01] border-brand-primary/40 bg-muted/40" : ""
+                }`}
         >
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                {/* Grab Drag handle */}
-                <button
-                    {...attributes}
-                    {...listeners}
-                    className="h-[34px] w-6 cursor-grab rounded-md flex items-center justify-center text-muted-foreground/60 hover:text-foreground hover:bg-muted/80 transition-colors"
-                    title="Drag to reorder condition"
-                >
-                    <GripVertical size={13} />
-                </button>
-
-                {/* Styled Field Selector Dropdown */}
-                <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
-                    <select
-                        value={node.field}
-                        onChange={(e) => updateRule(node.id, { field: e.target.value })}
-                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                {/* Row 1 on mobile / left portion on desktop: drag + field + operator */}
+                <div className="flex items-center gap-1.5 min-w-0">
+                    <button
+                        {...attributes}
+                        {...listeners}
+                        className="h-[34px] w-6 shrink-0 cursor-grab rounded-md flex items-center justify-center text-muted-foreground/60 hover:text-foreground hover:bg-muted/80 transition-colors"
+                        title="Drag to reorder condition"
                     >
-                        {Object.values(schema).map((f) => (
-                            <option key={f.key} value={f.key}>
-                                {f.label}
-                            </option>
-                        ))}
-                    </select>
-                    <span className="absolute right-2 text-muted-foreground/60 pointer-events-none">
-                        <ChevronDown size={11} />
-                    </span>
+                        <GripVertical size={13} />
+                    </button>
+
+                    <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground flex-1 sm:w-[120px] sm:flex-none transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
+                        <select
+                            value={node.field}
+                            onChange={(e) => updateRule(node.id, { field: e.target.value })}
+                            className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
+                        >
+                            {Object.values(schema).map((f) => (
+                                <option key={f.key} value={f.key}>
+                                    {f.label}
+                                </option>
+                            ))}
+                        </select>
+                        <span className="absolute right-2 text-muted-foreground/60 pointer-events-none">
+                            <ChevronDown size={11} />
+                        </span>
+                    </div>
+
+                    <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground flex-1 sm:w-[130px] sm:flex-none transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
+                        <select
+                            value={node.operator}
+                            onChange={(e) => updateRule(node.id, { operator: e.target.value as any })}
+                            className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
+                        >
+                            {availableOperators.map((op) => (
+                                <option key={op} value={op}>
+                                    {OPERATOR_LABELS[op]}
+                                </option>
+                            ))}
+                        </select>
+                        <span className="absolute right-2 text-muted-foreground/60 pointer-events-none">
+                            <ChevronDown size={11} />
+                        </span>
+                    </div>
                 </div>
 
-                {/* Styled Operator Selector Dropdown */}
-                <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[130px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
-                    <select
-                        value={node.operator}
-                        onChange={(e) => updateRule(node.id, { operator: e.target.value as any })}
-                        className="appearance-none bg-transparent pr-7 pl-2.5 py-1 text-sm w-full font-medium focus:outline-none cursor-pointer text-ellipsis overflow-hidden"
+                {/* Row 2 on mobile / right portion on desktop: value + delete */}
+                {/* pl-[30px] = drag handle (24px) + gap (6px) — aligns value with field selectors above */}
+                <div className="flex items-center gap-1.5 pl-[30px] sm:pl-0 sm:flex-1 min-w-0">
+                    <div className="flex-1 min-w-0">
+                        <ValueInput
+                            fieldDef={fieldDef}
+                            operator={node.operator}
+                            value={node.value}
+                            onChange={(value) => updateRule(node.id, { value })}
+                        />
+                    </div>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-[34px] w-[34px] shrink-0 rounded-lg text-muted-foreground/80 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover/rule:opacity-100 transition-all duration-200 flex items-center justify-center"
+                        onClick={() => removeNode(node.id)}
+                        title="Delete condition"
                     >
-                        {availableOperators.map((op) => (
-                            <option key={op} value={op}>
-                                {OPERATOR_LABELS[op]}
-                            </option>
-                        ))}
-                    </select>
-                    <span className="absolute right-2 text-muted-foreground/60 pointer-events-none">
-                        <ChevronDown size={11} />
-                    </span>
+                        <Trash2 size={12} />
+                    </Button>
                 </div>
-
-                {/* Value Input — Dynamic rendering depending on Schema type */}
-                <div className="flex-1 min-w-[140px]">
-                    <ValueInput
-                        fieldDef={fieldDef}
-                        operator={node.operator}
-                        value={node.value}
-                        onChange={(value) => updateRule(node.id, { value })}
-                    />
-                </div>
-
-                {/* Delete button (Smooth red indicator on hover) */}
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-[34px] w-[34px] rounded-lg text-muted-foreground/80 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover/rule:opacity-100 transition-all duration-200 ml-auto flex items-center justify-center"
-                    onClick={() => removeNode(node.id)}
-                    title="Delete condition"
-                >
-                    <Trash2 size={12} />
-                </Button>
             </div>
 
             {/* Structured validation warning bar */}

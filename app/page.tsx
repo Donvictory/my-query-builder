@@ -1,8 +1,9 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { useQueryStore } from "@/store/query-store"
 import {
   ArrowRight,
   Layers,
@@ -56,22 +57,15 @@ const features = [
 ]
 
 export default function LandingPage() {
-  const [darkMode, setDarkMode] = useState(false)
+  const darkMode = useQueryStore((s) => s.darkMode)
+  const toggleDarkMode = useQueryStore((s) => s.toggleDarkMode)
   const [isNavigating, setIsNavigating] = useState(false)
   const router = useRouter()
 
   const handleLaunch = () => {
     setIsNavigating(true)
-    router.push("/builder")
+    setTimeout(() => router.push("/builder"), 2500)
   }
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [darkMode])
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -86,7 +80,7 @@ export default function LandingPage() {
               variant="ghost"
               size="icon"
               className="h-8 w-8 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground"
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={toggleDarkMode}
             >
               {darkMode ? <Sun size={14} className="text-amber-500" /> : <Moon size={14} />}
             </Button>
@@ -262,7 +256,7 @@ export default function LandingPage() {
               className="text-3xl font-bold tracking-tight"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.06, duration: 1.2 }}
+              transition={{ delay: 0.06, duration: 0.5 }}
             >
               QueryCraft
             </motion.span>

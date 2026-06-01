@@ -3,6 +3,7 @@ import { useQueryExecution } from "@/hooks/useQueryExecution"
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut"
 import { useQueryExport } from "@/hooks/useQueryExport"
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
 import { useQueryStore } from "@/store/query-store"
 import { QueryGroup } from "@/components/query-builder/QueryGroup"
 import { QueryPreview } from "@/components/query-builder/QueryPreview"
@@ -43,7 +44,8 @@ export default function Home() {
   const { execute } = useQueryExecution()
   const { exportQuery, importFromJSON } = useQueryExport()
   useKeyboardShortcut(execute)
-  const [darkMode, setDarkMode] = useState(false)
+  const darkMode = useQueryStore((s) => s.darkMode)
+  const toggleDarkMode = useQueryStore((s) => s.toggleDarkMode)
   const [showPresets, setShowPresets] = useState(false)
   const [presetName, setPresetName] = useState("")
   const [showImport, setShowImport] = useState(false)
@@ -57,14 +59,6 @@ export default function Home() {
   useEffect(() => {
     setResults([])
   }, [setResults])
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [darkMode])
 
   function handleImport() {
     const error = importFromJSON(importText)
@@ -81,7 +75,12 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
 
       {/* Premium Glassmorphic Header */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/80 border-b border-border/60 px-4 py-2.5">
+      <motion.header
+        className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/80 border-b border-border/60 px-4 py-2.5"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
         <div className="flex items-center justify-between w-full">
           {/* Logo & Schema */}
           <div className="flex items-center gap-2.5">
@@ -164,7 +163,7 @@ export default function Home() {
                 variant="ghost"
                 size="icon"
                 className="h-[34px] w-[34px] rounded-md hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center"
-                onClick={() => setDarkMode(!darkMode)}
+                onClick={toggleDarkMode}
               >
                 {darkMode ? <Sun size={13} className="text-amber-500" /> : <Moon size={13} />}
               </Button>
@@ -183,7 +182,7 @@ export default function Home() {
               variant="ghost"
               size="icon"
               className="h-[34px] w-[34px] rounded-md hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center"
-              onClick={() => setDarkMode(!darkMode)}
+              onClick={toggleDarkMode}
             >
               {darkMode ? <Sun size={13} className="text-amber-500" /> : <Moon size={13} />}
             </Button>
@@ -281,11 +280,10 @@ export default function Home() {
             </div>
           </div>
         )}
-      </header>
+      </motion.header>
 
-      {/* --- MODAL DIALOGS --- */}
-
-      {/* Import JSON Modal */}
+     
+ 
       {showImport && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
           <div className="w-full max-w-md glass-panel rounded-xl overflow-hidden shadow-2xl border bg-card text-card-foreground animate-in zoom-in-95 duration-200">
@@ -477,7 +475,12 @@ export default function Home() {
         <div className="flex flex-col gap-5 min-w-0">
 
           {/* Query Builder Box */}
-          <div className="border border-border/70 rounded-xl bg-card shadow-xs overflow-hidden">
+          <motion.div
+            className="border border-border/70 rounded-xl bg-card shadow-xs overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+          >
 
             {/* Box Header */}
             <div className="px-4 py-3 bg-muted/20 border-b border-border/50 flex items-center justify-between flex-wrap gap-2.5">
@@ -518,17 +521,28 @@ export default function Home() {
             <div className="p-4 sm:p-5 bg-card/40">
               <QueryGroup node={root} depth={0} isRoot={true} />
             </div>
-          </div>
+          </motion.div>
 
           {/* Results Table Panel */}
-          <ResultsTable />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.22, ease: "easeOut" }}
+          >
+            <ResultsTable />
+          </motion.div>
         </div>
 
         {/* Right Side Sidebar: Live Preview & Schema Definition */}
-        <div className="flex flex-col gap-5 lg:sticky lg:top-[65px]">
+        <motion.div
+          className="flex flex-col gap-5 lg:sticky lg:top-[65px]"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.16, ease: "easeOut" }}
+        >
           <QueryPreview />
           <SchemaPanel />
-        </div>
+        </motion.div>
       </main>
     </div>
   )
