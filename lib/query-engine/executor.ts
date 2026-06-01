@@ -1,4 +1,4 @@
-import { QueryNode, QueryRule, QueryGroup } from "@/lib/schema/type"
+import { QueryGroup, QueryRule, QueryNode } from "@/lib/schema/type"
 
 function matchesRule(rule: QueryRule, row: Record<string, any>): boolean {
     const val = row[rule.field]
