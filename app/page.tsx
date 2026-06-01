@@ -1,5 +1,7 @@
 "use client"
-
+import { useQueryExecution } from "@/hooks/useQueryExecution"
+import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut"
+import { useQueryExport } from "@/hooks/useQueryExport"
 import { useEffect, useCallback } from "react"
 import { useQueryStore } from "@/store/query-store"
 import { QueryGroup } from "@/components/query-builder/QueryGroup"
@@ -27,23 +29,29 @@ export default function Home() {
   const root = useQueryStore((s) => s.root)
   const schema = useQueryStore((s) => s.schema)
   const selectedSchema = useQueryStore((s) => s.selectedSchema)
-  const setResults = useQueryStore((s) => s.setResults)
-  const setExecuting = useQueryStore((s) => s.setExecuting)
-  const setValidationErrors = useQueryStore((s) => s.setValidationErrors)
   const reset = useQueryStore((s) => s.reset)
-  const importQuery = useQueryStore((s) => s.importQuery)
   const presets = useQueryStore((s) => s.presets)
   const savePreset = useQueryStore((s) => s.savePreset)
   const loadPreset = useQueryStore((s) => s.loadPreset)
   const deletePreset = useQueryStore((s) => s.deletePreset)
   const undo = useQueryStore((s) => s.undo)
-
+  const [showHistory, setShowHistory] = useState(false)
+  const { execute } = useQueryExecution()
+  const { exportQuery, importFromJSON } = useQueryExport()
+  useKeyboardShortcut(execute)
   const [darkMode, setDarkMode] = useState(false)
   const [showPresets, setShowPresets] = useState(false)
   const [presetName, setPresetName] = useState("")
   const [showImport, setShowImport] = useState(false)
   const [importText, setImportText] = useState("")
   const [importError, setImportError] = useState("")
+  const setResults = useQueryStore((s) => s.setResults)
+  const history = useQueryStore((s) => s.history)
+  const importQuery = useQueryStore((s) => s.importQuery)
+
+  useEffect(() => {
+    setResults([])
+  }, [])
 
 
   useEffect(() => {
@@ -55,54 +63,16 @@ export default function Home() {
   }, [darkMode])
 
 
-  useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      if (e.ctrlKey && e.key === "Enter") handleExecute()
-      if (e.ctrlKey && e.key === "z") undo()
-    }
-    window.addEventListener("keydown", handleKey)
-    return () => window.removeEventListener("keydown", handleKey)
-  }, [root])
-
-  const handleExecute = useCallback(() => {
-    const errors = validateTree(root, schema)
-    setValidationErrors(errors)
-    if (errors.length > 0) return
-
-    setExecuting(true)
-    setTimeout(() => {
-      const dataset = MOCK_DATA[selectedSchema] ?? []
-      const results = executeQuery(root, dataset)
-      setResults(results)
-      setExecuting(false)
-    }, 500)
-  }, [root, schema, selectedSchema])
-
-  function handleExport() {
-    const json = JSON.stringify(root, null, 2)
-    const blob = new Blob([json], { type: "application/json" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = "query.json"
-    a.click()
-    URL.revokeObjectURL(url)
-  }
 
   function handleImport() {
-    try {
-      const parsed = JSON.parse(importText)
-      if (parsed.type !== "group" || !parsed.children || !parsed.logic) {
-        setImportError("Invalid query structure")
-        return
-      }
-      importQuery(parsed as QueryGroupType)
-      setShowImport(false)
-      setImportText("")
-      setImportError("")
-    } catch {
-      setImportError("Invalid JSON — please check your input")
+    const error = importFromJSON(importText)
+    if (error) {
+      setImportError(error)
+      return
     }
+    setShowImport(false)
+    setImportText("")
+    setImportError("")
   }
 
   return (
@@ -117,7 +87,7 @@ export default function Home() {
         </div>
 
         <div className="flex items-center gap-1">
-          <Button variant="outline" size="icon" className="h-8 w-8" onClick={handleExport}>
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={exportQuery}>
             <Download size={13} />
           </Button>
           <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setShowImport(!showImport)}>
@@ -131,6 +101,14 @@ export default function Home() {
           </Button>
           <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? <Sun size={13} /> : <Moon size={13} />}
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-8 w-8"
+            onClick={() => setShowHistory(!showHistory)}
+          >
+            <History size={13} />
           </Button>
         </div>
       </header>
@@ -210,6 +188,47 @@ export default function Home() {
         </div>
       )}
 
+      {/* History panel */}
+      {showHistory && (
+        <div className="border-b px-6 py-4 bg-muted/30">
+          <p className="text-xs font-medium mb-3">Query history</p>
+          {history.length === 0 ? (
+            <p className="text-xs text-muted-foreground">
+              No history yet — execute a query to start tracking
+            </p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {[...history].reverse().map((h, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between text-xs border rounded-md px-3 py-2 bg-background"
+                >
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-foreground font-medium">
+                      Query {history.length - i}
+                    </span>
+                    <span className="text-muted-foreground">
+                      {h.children.length} condition{h.children.length !== 1 ? "s" : ""} — {h.logic}
+                    </span>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-6 text-xs px-2"
+                    onClick={() => {
+                      importQuery(JSON.parse(JSON.stringify(h)))
+                      setShowHistory(false)
+                    }}
+                  >
+                    Restore
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
 
       <main className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4 p-3 sm:p-6 max-w-7xl mx-auto w-full">
 
@@ -232,7 +251,7 @@ export default function Home() {
                 <Button
                   size="sm"
                   className="h-7 text-xs gap-1"
-                  onClick={handleExecute}
+                  onClick={execute}
                 >
                   <Play size={12} /> Execute
                   <span className="text-xs opacity-60 ml-1 hidden sm:inline">Ctrl+↵</span>

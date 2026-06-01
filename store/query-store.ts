@@ -283,7 +283,15 @@ export const useQueryStore = create<QueryStore>()(
             partialize: (state) => ({
                 presets: state.presets,
                 selectedSchema: state.selectedSchema,
+                root: state.root,
             }),
+            onRehydrateStorage: () => (state) => {
+                if (state) {
+                    state.results = []
+                    state.isExecuting = false
+                    state.validationErrors = []
+                }
+            },
         }
     )
 )

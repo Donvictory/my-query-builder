@@ -1,5 +1,5 @@
 "use client"
-
+import { AnimatePresence, motion } from "framer-motion"
 import { QueryGroup as QueryGroupType, QueryNode } from "@/lib/schema/type"
 import { useQueryStore } from "@/store/query-store"
 import { QueryRule } from "./QueryRule"
@@ -73,7 +73,6 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
         <div className={`border-l-2 ${borderColor} pl-3 mb-3`}>
             {/* Group header */}
             <div className="flex items-center gap-2 mb-2">
-                {/* Collapse toggle */}
                 <button
                     onClick={() => toggleCollapse(node.id)}
                     className="text-muted-foreground hover:text-foreground"
@@ -81,12 +80,11 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                     {node.collapsed ? <ChevronRight size={14} /> : <ChevronDown size={14} />}
                 </button>
 
-                {/* AND / OR toggle */}
                 <button
                     onClick={() => toggleLogic(node.id)}
                     className={`text-xs font-semibold px-3 py-1 rounded-full border transition-colors ${node.logic === "AND"
-                            ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300"
-                            : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300"
+                        ? "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300"
+                        : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950 dark:text-amber-300"
                         }`}
                 >
                     {node.logic}
@@ -96,7 +94,6 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                     {isRoot ? "Root group" : `Nested group (depth ${depth})`}
                 </span>
 
-                {/* Delete group — not root */}
                 {!isRoot && (
                     <Button
                         variant="ghost"
@@ -109,54 +106,60 @@ export function QueryGroup({ node, depth = 0, isRoot = false }: Props) {
                 )}
             </div>
 
-            {/* Group error */}
             {groupError && (
                 <p className="text-xs text-destructive mb-2 ml-4">{groupError.message}</p>
             )}
 
-            {/* Children — collapsible */}
-            {!node.collapsed && (
-                <div>
-                    <DndContext
-                        sensors={sensors}
-                        collisionDetection={closestCenter}
-                        onDragEnd={handleDragEnd}
+            <AnimatePresence initial={false}>
+                {!node.collapsed && (
+                    <motion.div
+                        key="content"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}
                     >
-                        <SortableContext
-                            items={node.children.map((c) => c.id)}
-                            strategy={verticalListSortingStrategy}
+                        <DndContext
+                            sensors={sensors}
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
                         >
-                            {node.children.map((child: QueryNode) =>
-                                child.type === "rule" ? (
-                                    <QueryRule key={child.id} node={child} parentId={node.id} />
-                                ) : (
-                                    <QueryGroup key={child.id} node={child} depth={depth + 1} />
-                                )
-                            )}
-                        </SortableContext>
-                    </DndContext>
+                            <SortableContext
+                                items={node.children.map((c) => c.id)}
+                                strategy={verticalListSortingStrategy}
+                            >
+                                {node.children.map((child: QueryNode) =>
+                                    child.type === "rule" ? (
+                                        <QueryRule key={child.id} node={child} parentId={node.id} />
+                                    ) : (
+                                        <QueryGroup key={child.id} node={child} depth={depth + 1} />
+                                    )
+                                )}
+                            </SortableContext>
+                        </DndContext>
 
-                    {/* Add rule / Add group */}
-                    <div className="flex gap-2 mt-2">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-7 text-xs gap-1"
-                            onClick={() => addRule(node.id)}
-                        >
-                            <Plus size={12} /> Add rule
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-7 text-xs gap-1"
-                            onClick={() => addGroup(node.id)}
-                        >
-                            <Layers size={12} /> Add group
-                        </Button>
-                    </div>
-                </div>
-            )}
+                        <div className="flex gap-2 mt-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="h-7 text-xs gap-1"
+                                onClick={() => addRule(node.id)}
+                            >
+                                <Plus size={12} /> Add rule
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="h-7 text-xs gap-1"
+                                onClick={() => addGroup(node.id)}
+                            >
+                                <Layers size={12} /> Add group
+                            </Button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }
