@@ -230,3 +230,19 @@
   background-color: #000000;
   color: #ffffff;
 }
+
+/* Syntax Highlighting Tokens (Non-Tailwind) */
+.token-keyword {
+  color: oklch(0.7 0.15 210); /* Cyan color */
+  font-weight: 600;
+}
+
+.token-string {
+  color: oklch(0.8 0.14 85); /* Amber / yellow-ish color */
+  font-weight: 500;
+}
+
+.token-property {
+  color: oklch(0.75 0.12 310); /* Purple / pink color */
+  font-weight: 600;
+}

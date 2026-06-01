@@ -4,20 +4,6 @@ import { useQueryStore } from "@/store/query-store"
 import { generateMongo, generateFullSQL } from "@/lib/query-engine/generator"
 import { Copy, Check, Terminal } from "lucide-react"
 
-// Lightweight, secure regex highlighter for SQL
-function highlightSQL(sql: string): string {
-  const keywords = /\b(SELECT|FROM|WHERE|AND|OR|IN|LIKE|BETWEEN|IS|NULL|NOT)\b/g
-  const quotes = /(('[^']*')|("[^"]*"))/g
-
-  let esc = sql
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-
-  esc = esc.replace(keywords, '<span class="text-cyan-400 dark:text-cyan-400 font-bold">$1</span>')
-  esc = esc.replace(quotes, '<span class="text-amber-300 font-medium">$1</span>')
-  return esc
-}
 
 
 function highlightMongo(mongo: string): string {
@@ -27,11 +13,11 @@ function highlightMongo(mongo: string): string {
     .replace(/>/g, "&gt;")
 
 
-  esc = esc.replace(/("\$[a-zA-Z]+"):/g, '<span class="text-cyan-400 font-bold">$1</span>:')
+  esc = esc.replace(/("\$[a-zA-Z]+"):/g, '<span class="token-keyword">$1</span>:')
 
-  esc = esc.replace(/("[\w_]+"):(\s*)/g, '<span class="text-purple-300 font-semibold">$1</span>:$2')
+  esc = esc.replace(/("[\w_]+"):(\s*)/g, '<span class="token-property">$1</span>:$2')
 
-  esc = esc.replace(/:(\s*)("[^"]*")/g, ':$1<span class="text-amber-300 font-medium">$2</span>')
+  esc = esc.replace(/:(\s*)("[^"]*")/g, ':$1<span class="token-string">$2</span>')
   return esc
 }
 
@@ -45,7 +31,7 @@ export function QueryPreview() {
   const sql = generateFullSQL(root, schema, selectedSchema)
   const mongo = JSON.stringify(generateMongo(root), null, 2)
 
-  const highlightedCode = mode === "sql" ? highlightSQL(sql) : highlightMongo(mongo)
+  const highlightedCode = mode === "mongo" ? highlightMongo(mongo) : null
 
   function handleCopy() {
     navigator.clipboard.writeText(mode === "sql" ? sql : mongo)
@@ -59,7 +45,7 @@ export function QueryPreview() {
       <div className="px-4 py-2.5 bg-muted/20 border-b border-border/50 flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-1.5">
           <Terminal size={14} className="text-brand-primary" />
-          <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+          <h3 className="text-sm font-medium text-muted-foreground tracking-wider">
             Live query preview
           </h3>
         </div>
@@ -72,7 +58,7 @@ export function QueryPreview() {
               <button
                 key={m}
                 onClick={() => setMode(m)}
-                className={`text-sm font-bold px-3 py-1 rounded-md transition-all cursor-pointer ${active
+                className={`text-sm font-medium px-3 py-1 rounded-md transition-all cursor-pointer ${active
                   ? "bg-brand-primary/10 text-brand-primary shadow-3xs"
                   : "text-muted-foreground hover:text-foreground"
                   }`}
@@ -97,28 +83,24 @@ export function QueryPreview() {
         {/* Floating Action Button for Copying */}
         <button
           onClick={handleCopy}
-          className={`absolute right-3.5 top-3.5 h-7 px-2.5 rounded-lg border text-sm font-bold flex items-center gap-1.5 transition-all shadow-sm ${copied
+          className={`absolute right-3.5 top-3.5 h-[30px] min-w-[30px] px-2 rounded-lg border text-sm font-medium flex items-center justify-center gap-1.5 transition-all shadow-sm ${copied
             ? "bg-emerald-500 border-emerald-400 text-white"
-            : "bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:bg-slate-850"
+            : "bg-slate-900 border-slate-800 text-slate-300 hover:text-white"
             }`}
         >
-          {copied ? (
-            <>
-              <Check size={11} /> COPIED
-            </>
-          ) : (
-            <>
-              <Copy size={11} /> COPY CODE
-            </>
-          )}
+          {copied ? <><Check size={11} /> Copied!</> : <Copy size={11} />}
         </button>
 
         {/* Scrollable syntax editor */}
         <pre className="text-slate-100 font-mono text-sm leading-relaxed overflow-x-auto max-h-64 whitespace-pre-wrap break-all custom-scrollbar pb-1 pr-16 select-text selection:bg-cyan-500/30">
-          <code
-            dangerouslySetInnerHTML={{ __html: highlightedCode }}
-            className="font-mono select-text"
-          />
+          {mode === "sql" ? (
+            <code className="font-mono select-text">{sql}</code>
+          ) : (
+            <code
+              dangerouslySetInnerHTML={{ __html: highlightedCode! }}
+              className="font-mono select-text"
+            />
+          )}
         </pre>
       </div>
     </div>

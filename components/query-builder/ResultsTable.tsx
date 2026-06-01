@@ -53,7 +53,7 @@ function renderStatusPill(status: string) {
     }
 
     return (
-        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-sm font-bold border ${styles} shadow-3xs`}>
+        <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-sm font-medium border ${styles} shadow-3xs`}>
             <span className={`h-1 w-1 rounded-full ${dot}`} />
             {status}
         </span>
@@ -73,13 +73,13 @@ export function ResultsTable() {
             <div className="px-4 py-3 border-b border-border/50 bg-muted/20 flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
                     <Table size={14} className="text-brand-accent animate-pulse" />
-                    <h2 className="text-sm font-bold text-foreground uppercase tracking-wider">
+                    <h2 className="text-sm font-medium text-foreground tracking-wider">
                         Results
                     </h2>
                 </div>
-                
+
                 {!isExecuting && (
-                    <span className="text-sm font-bold bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-sm font-medium bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                         {results.length} row{results.length !== 1 ? "s" : ""} matched
                     </span>
                 )}
@@ -115,7 +115,7 @@ export function ResultsTable() {
                                 {columns.map((col) => (
                                     <th
                                         key={col}
-                                        className="py-2.5 px-3.5 text-sm font-bold text-muted-foreground uppercase tracking-wider"
+                                        className="py-2.5 px-3.5 text-sm font-medium text-muted-foreground uppercase tracking-wider"
                                     >
                                         <div className="flex items-center gap-1.5">
                                             {getColumnIcon(col)}

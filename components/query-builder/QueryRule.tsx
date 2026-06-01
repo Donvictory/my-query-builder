@@ -51,14 +51,14 @@ export function QueryRule({ node, parentId }: Props) {
                 <button
                     {...attributes}
                     {...listeners}
-                    className="h-7 w-5 cursor-grab rounded-md flex items-center justify-center text-muted-foreground/60 hover:text-foreground hover:bg-muted/80 transition-colors"
+                    className="h-[34px] w-6 cursor-grab rounded-md flex items-center justify-center text-muted-foreground/60 hover:text-foreground hover:bg-muted/80 transition-colors"
                     title="Drag to reorder condition"
                 >
                     <GripVertical size={13} />
                 </button>
 
                 {/* Styled Field Selector Dropdown */}
-                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
+                <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
                     <select
                         value={node.field}
                         onChange={(e) => updateRule(node.id, { field: e.target.value })}
@@ -76,7 +76,7 @@ export function QueryRule({ node, parentId }: Props) {
                 </div>
 
                 {/* Styled Operator Selector Dropdown */}
-                <div className="relative flex items-center h-7 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[130px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
+                <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[130px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary">
                     <select
                         value={node.operator}
                         onChange={(e) => updateRule(node.id, { operator: e.target.value as any })}
@@ -107,7 +107,7 @@ export function QueryRule({ node, parentId }: Props) {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="h-7 w-7 rounded-lg text-muted-foreground/80 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover/rule:opacity-100 transition-all duration-200 ml-auto"
+                    className="h-[34px] w-[34px] rounded-lg text-muted-foreground/80 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover/rule:opacity-100 transition-all duration-200 ml-auto flex items-center justify-center"
                     onClick={() => removeNode(node.id)}
                     title="Delete condition"
                 >

@@ -1,13 +1,13 @@
 "use client"
 import { useQueryStore } from "@/store/query-store"
 import { SCHEMA_NAMES } from "@/lib/schema/schemas"
-import { 
-    Users, 
-    ShoppingBag, 
-    CreditCard, 
-    Database, 
-    BookOpen, 
-    CheckCircle, 
+import {
+    Users,
+    ShoppingBag,
+    CreditCard,
+    Database,
+    BookOpen,
+    CheckCircle,
     ShieldCheck
 } from "lucide-react"
 
@@ -45,7 +45,7 @@ export function SchemaPanel() {
             <div>
                 <div className="flex items-center gap-1.5 mb-2.5">
                     <Database size={13} className="text-brand-primary" />
-                    <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider">
                         Data source
                     </h3>
                 </div>
@@ -56,11 +56,10 @@ export function SchemaPanel() {
                             <button
                                 key={name}
                                 onClick={() => setSchema(name)}
-                                className={`text-sm px-3 py-1.5 rounded-lg border font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-3xs hover:scale-[1.01] active:scale-[0.99] ${
-                                    active
-                                        ? "bg-brand-primary/10 border-brand-primary/30 text-brand-primary"
-                                        : "bg-background border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted"
-                                }`}
+                                className={`text-sm px-3 py-1.5 rounded-lg border font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-3xs hover:scale-[1.01] active:scale-[0.99] ${active
+                                    ? "bg-brand-primary/10 border-brand-primary/30 text-brand-primary"
+                                    : "bg-background border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted"
+                                    }`}
                             >
                                 {getSchemaIcon(name)}
                                 {name}
@@ -74,7 +73,7 @@ export function SchemaPanel() {
             <div>
                 <div className="flex items-center gap-1.5 mb-2">
                     <BookOpen size={13} className="text-brand-accent" />
-                    <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider">
                         Schema fields
                     </h3>
                 </div>
@@ -85,7 +84,7 @@ export function SchemaPanel() {
                             className="flex items-center justify-between text-sm py-2 px-3 hover:bg-muted/15 transition-colors"
                         >
                             <span className="font-semibold text-foreground">{field.label}</span>
-                            <span className={`px-2 py-0.5 rounded-md text-sm font-mono font-bold border ${TYPE_COLORS[field.type]}`}>
+                            <span className={`px-2 py-0.5 rounded-md text-sm font-mono font-medium border ${TYPE_COLORS[field.type]}`}>
                                 {field.type}
                             </span>
                         </div>
@@ -97,16 +96,16 @@ export function SchemaPanel() {
             <div className="border-t border-border/60 pt-4">
                 <div className="flex items-center gap-1.5 mb-2.5">
                     <ShieldCheck size={13} className="text-emerald-500" />
-                    <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">
+                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider">
                         Validation
                     </h3>
                 </div>
-                
+
                 {errors.length === 0 ? (
                     <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3 flex items-start gap-2.5 animate-fade-in shadow-3xs">
                         <CheckCircle size={15} className="text-emerald-500 shrink-0 mt-0.5 animate-pulse" />
                         <div>
-                            <p className="text-sm font-bold text-green-600 dark:text-green-400">
+                            <p className="text-sm font-medium text-green-600 dark:text-green-400">
                                 ✓ Query is valid
                             </p>
                         </div>
