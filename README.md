@@ -1,3 +1,4 @@
+<!-- feat: project scaffold and first setup -->
 # QueryCraft — Visual Query Builder
 
 A highly interactive visual query builder that allows users to construct complex database queries through a graphical interface instead of writing raw query syntax manually.
