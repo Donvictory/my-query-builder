@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, League_Spartan } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Toaster } from "react-hot-toast";
 
 const leagueSpartan = League_Spartan({
   subsets: ["latin"],
@@ -34,6 +35,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("h-full", "antialiased", leagueSpartan.variable, geistSans.variable, geistMono.variable, "font-sans")}
     >
+      <Toaster position="top-right" />
+
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

@@ -1,4 +1,3 @@
-"use client"
 import { useKeyboardShortcut } from "@/hooks/useKeyboardShortcut"
 import { useQueryExecution } from "@/hooks/useQueryExecution"
 import { useQueryExport } from "@/hooks/useQueryExport"
@@ -6,25 +5,21 @@ import { useQueryStore } from "@/store/query-store"
 import { motion } from "framer-motion"
 import { Bookmark, ChevronDown, ChevronLeft, Database, Download, History, Menu, Moon, Redo, Sun, Undo, Upload } from "lucide-react"
 import Link from "next/link"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Button } from "../ui/button"
 import { SCHEMA_NAMES } from "@/lib/schema/schemas"
 
-export function QuerybuilderNav() {
+export function QuerybuilderNav({ setShowHistory, setShowImport, setShowPresets }: { setShowHistory: (show: boolean) => void, setShowImport: (show: boolean) => void, setShowPresets: (show: boolean) => void }) {
 
     const selectedSchema = useQueryStore((s) => s.selectedSchema)
     const setSchema = useQueryStore((s) => s.setSchema)
     const undo = useQueryStore((s) => s.undo)
     const redo = useQueryStore((s) => s.redo)
-    const [showHistory, setShowHistory] = useState(false)
     const { execute } = useQueryExecution()
     const { exportQuery, importFromJSON } = useQueryExport()
     useKeyboardShortcut(execute)
     const darkMode = useQueryStore((s) => s.darkMode)
     const toggleDarkMode = useQueryStore((s) => s.toggleDarkMode)
-    const [showPresets, setShowPresets] = useState(false)
-
-    const [showImport, setShowImport] = useState(false)
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
