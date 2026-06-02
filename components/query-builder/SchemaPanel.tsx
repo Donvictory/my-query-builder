@@ -1,29 +1,10 @@
 "use client"
 import { useQueryStore } from "@/store/query-store"
-import { SCHEMA_NAMES } from "@/lib/schema/schemas"
 import {
-    Users,
-    ShoppingBag,
-    CreditCard,
-    Database,
     BookOpen,
     CheckCircle,
     ShieldCheck
 } from "lucide-react"
-
-// Assigning custom database schema icons
-function getSchemaIcon(name: string) {
-    switch (name.toLowerCase()) {
-        case "users":
-            return <Users size={12} className="text-brand-primary" />
-        case "products":
-            return <ShoppingBag size={12} className="text-brand-accent" />
-        case "orders":
-            return <CreditCard size={12} className="text-purple-500" />
-        default:
-            return <Database size={12} />
-    }
-}
 
 const TYPE_COLORS: Record<string, string> = {
     string: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
@@ -35,41 +16,11 @@ const TYPE_COLORS: Record<string, string> = {
 
 export function SchemaPanel() {
     const schema = useQueryStore((s) => s.schema)
-    const selectedSchema = useQueryStore((s) => s.selectedSchema)
-    const setSchema = useQueryStore((s) => s.setSchema)
     const errors = useQueryStore((s) => s.validationErrors)
     const hasExecuted = useQueryStore((s) => s.hasExecuted)
 
     return (
         <div className="border border-border/70 rounded-xl bg-card p-4 shadow-xs flex flex-col gap-4.5">
-            {/* Schema database switcher */}
-            <div>
-                <div className="flex items-center gap-1.5 mb-2.5">
-                    <Database size={13} className="text-brand-primary" />
-                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider">
-                        Data source
-                    </h3>
-                </div>
-                <div className="flex gap-1.5 flex-wrap">
-                    {SCHEMA_NAMES.map((name) => {
-                        const active = selectedSchema === name
-                        return (
-                            <button
-                                key={name}
-                                onClick={() => setSchema(name)}
-                                className={`text-sm px-3 py-1.5 rounded-lg border font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-3xs hover:scale-[1.01] active:scale-[0.99] ${active
-                                    ? "bg-brand-primary/10 border-brand-primary/30 text-brand-primary"
-                                    : "bg-background border-border/80 text-muted-foreground hover:text-foreground hover:bg-muted"
-                                    }`}
-                            >
-                                {getSchemaIcon(name)}
-                                {name}
-                            </button>
-                        )
-                    })}
-                </div>
-            </div>
-
             {/* Schema fields listing */}
             <div>
                 <div className="flex items-center gap-1.5 mb-2">

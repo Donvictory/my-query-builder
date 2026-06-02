@@ -4,6 +4,7 @@ import { immer } from "zustand/middleware/immer"
 import { nanoid } from "nanoid"
 import { QueryNode, QueryRule, QueryGroup, Schema, SavedPreset, ValidationError } from "@/lib/schema/type"
 import { SCHEMAS } from "@/lib/schema/schemas"
+import { StarterPreset } from "@/lib/schema/starter-presets"
 
 
 function findAndMutate(
@@ -62,7 +63,7 @@ function makeDefaultGroup(schema: Schema): QueryGroup {
     }
 }
 
-// --- Store Types ---
+
 interface QueryStore {
     root: QueryGroup
     schema: Schema
@@ -102,6 +103,7 @@ interface QueryStore {
     deletePreset: (presetId: string) => void
 
     importQuery: (root: QueryGroup) => void
+    loadStarterPreset: (preset: StarterPreset) => void
 }
 
 export const useQueryStore = create<QueryStore>()(
@@ -287,9 +289,19 @@ export const useQueryStore = create<QueryStore>()(
 
             importQuery: (root) =>
                 set((state) => {
-                    state.root = root
+                    state.root = JSON.parse(JSON.stringify(root))
                     state.results = []
                     state.validationErrors = []
+                }),
+
+            loadStarterPreset: (preset) =>
+                set((state) => {
+                    state.selectedSchema = preset.schema
+                    state.schema = SCHEMAS[preset.schema]
+                    state.root = JSON.parse(JSON.stringify(preset.root))
+                    state.results = []
+                    state.validationErrors = []
+                    state.hasExecuted = false
                 }),
         })),
         {

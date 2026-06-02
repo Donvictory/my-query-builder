@@ -1,4 +1,5 @@
 "use client"
+import { useEffect, useState } from "react"
 import { useQueryStore } from "@/store/query-store"
 import {
     User,
@@ -13,10 +14,12 @@ import {
     Activity,
     Database,
     Table,
-    Loader2
+    Loader2,
+    ChevronLeft,
+    ChevronRight,
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-// Dynamic Column Helper to assign distinct technical icons
 function getColumnIcon(col: string) {
     const norm = col.toLowerCase()
     if (norm.includes("name")) return <User size={11} className="text-brand-primary" />
@@ -32,7 +35,6 @@ function getColumnIcon(col: string) {
     return <Database size={11} className="text-muted-foreground" />
 }
 
-// Visual status pill generator
 function renderStatusPill(status: string) {
     const val = status.toLowerCase()
     let styles = "bg-muted/40 text-muted-foreground border-border"
@@ -60,16 +62,27 @@ function renderStatusPill(status: string) {
     )
 }
 
+const PAGE_SIZE_OPTIONS = [1, 5, 10, 25]
+
 export function ResultsTable() {
     const results = useQueryStore((s) => s.results)
     const schema = useQueryStore((s) => s.schema)
     const isExecuting = useQueryStore((s) => s.isExecuting)
 
+    const [page, setPage] = useState(0)
+    const [pageSize, setPageSize] = useState(5)
+
+    useEffect(() => {
+        setPage(0)
+    }, [results])
+
     const columns = Object.keys(schema)
+    const totalPages = Math.ceil(results.length / pageSize)
+    const pageRows = results.slice(page * pageSize, (page + 1) * pageSize)
 
     return (
         <div className="border border-border/70 rounded-xl bg-card shadow-xs overflow-hidden">
-            {/* Panel Header */}
+
             <div className="px-4 py-3 border-b border-border/50 bg-muted/20 flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-1.5">
                     <Table size={14} className="text-brand-accent animate-pulse" />
@@ -78,14 +91,35 @@ export function ResultsTable() {
                     </h2>
                 </div>
 
-                {!isExecuting && (
-                    <span className="text-sm font-medium bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                        {results.length} row{results.length !== 1 ? "s" : ""} matched
+                {!isExecuting && results.length > 0 && (
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                            {results.length} row{results.length !== 1 ? "s" : ""} matched
+                        </span>
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+
+                            <select
+                                value={pageSize}
+                                onChange={(e) => { setPageSize(Number(e.target.value)); setPage(0) }}
+                                className="text-sm border border-border/80 rounded-md px-1.5 py-0.5 bg-background text-foreground focus:outline-none focus:ring-1 focus:ring-brand-primary"
+                            >
+                                {PAGE_SIZE_OPTIONS.map((n) => (
+                                    <option key={n} value={n}>{n}</option>
+                                ))}
+                            </select>
+                            <span>per page</span>
+                        </div>
+                    </div>
+                )}
+
+                {!isExecuting && results.length === 0 && (
+                    <span className="text-sm font-medium bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded-lg">
+                        0 rows matched
                     </span>
                 )}
             </div>
 
-            {/* Content Area */}
+
             {isExecuting ? (
                 <div className="flex flex-col items-center justify-center py-12 gap-3">
                     <div className="relative flex items-center justify-center">
@@ -101,53 +135,92 @@ export function ResultsTable() {
                     <div className="h-9 w-9 rounded-xl bg-muted/40 border border-dashed border-border/60 flex items-center justify-center text-muted-foreground/60">
                         <Table size={16} />
                     </div>
-                    <div>
-                        <p className="text-sm font-semibold text-foreground">
-                            No results yet — execute a query to see matches
-                        </p>
-                    </div>
+                    <p className="text-sm font-semibold text-foreground">
+                        No results yet — execute a query to see matches
+                    </p>
                 </div>
             ) : (
-                <div className="overflow-x-auto max-h-80 custom-scrollbar">
-                    <table className="w-full text-sm text-left border-collapse">
-                        <thead>
-                            <tr className="border-b border-border bg-muted/10 sticky top-0 backdrop-blur-xs z-10">
-                                {columns.map((col) => (
-                                    <th
-                                        key={col}
-                                        className="py-2.5 px-3.5 text-sm font-medium text-muted-foreground uppercase tracking-wider"
-                                    >
-                                        <div className="flex items-center gap-1.5">
-                                            {getColumnIcon(col)}
-                                            {schema[col].label}
-                                        </div>
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border/40">
-                            {results.map((row, i) => (
-                                <tr
-                                    key={i}
-                                    className="hover:bg-muted/15 dark:hover:bg-muted/5 transition-colors"
-                                >
-                                    {columns.map((col) => {
-                                        const cellValue = row[col]
-                                        return (
-                                            <td key={col} className="py-2 px-3.5 text-foreground font-medium whitespace-nowrap">
-                                                {col === "status" || typeof cellValue === "boolean" ? (
-                                                    renderStatusPill(String(cellValue))
-                                                ) : (
-                                                    String(cellValue ?? "—")
-                                                )}
-                                            </td>
-                                        )
-                                    })}
+                <>
+                    <div className="overflow-x-auto custom-scrollbar">
+                        <table className="w-full text-sm text-left border-collapse">
+                            <thead>
+                                <tr className="border-b border-border bg-muted/10 sticky top-0 backdrop-blur-xs z-10">
+                                    {columns.map((col) => (
+                                        <th
+                                            key={col}
+                                            className="py-2.5 px-3.5 text-sm font-medium text-muted-foreground tracking-wider"
+                                        >
+                                            <div className="flex items-center gap-1.5">
+                                                {getColumnIcon(col)}
+                                                {schema[col].label}
+                                            </div>
+                                        </th>
+                                    ))}
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody className="divide-y divide-border/40">
+                                {pageRows.map((row, i) => (
+                                    <tr
+                                        key={i}
+                                        className="hover:bg-muted/15 dark:hover:bg-muted/5 transition-colors"
+                                    >
+                                        {columns.map((col) => {
+                                            const cellValue = row[col]
+                                            return (
+                                                <td key={col} className="py-2 px-3.5 text-foreground font-medium whitespace-nowrap">
+                                                    {col === "status" || typeof cellValue === "boolean" ? (
+                                                        renderStatusPill(String(cellValue))
+                                                    ) : (
+                                                        String(cellValue ?? "—")
+                                                    )}
+                                                </td>
+                                            )
+                                        })}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="px-4 py-2.5 border-t border-border/50 bg-muted/10 flex items-center justify-between gap-2 flex-wrap">
+                            <span className="text-sm text-muted-foreground">
+                                Showing {page * pageSize + 1}–{Math.min((page + 1) * pageSize, results.length)} of {results.length}
+                            </span>
+                            <div className="flex items-center gap-1">
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="h-7 w-7 rounded-md border-border/80 bg-background"
+                                    onClick={() => setPage((p) => Math.max(0, p - 1))}
+                                    disabled={page === 0}
+                                >
+                                    <ChevronLeft size={13} />
+                                </Button>
+                                {Array.from({ length: totalPages }, (_, i) => (
+                                    <Button
+                                        key={i}
+                                        variant={page === i ? "default" : "outline"}
+                                        size="sm"
+                                        className={`h-7 min-w-[28px] px-2 text-sm rounded-md border-border/80 ${page === i ? "bg-foreground text-background" : "bg-background"}`}
+                                        onClick={() => setPage(i)}
+                                    >
+                                        {i + 1}
+                                    </Button>
+                                ))}
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="h-7 w-7 rounded-md border-border/80 bg-background"
+                                    onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+                                    disabled={page === totalPages - 1}
+                                >
+                                    <ChevronRight size={13} />
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     )

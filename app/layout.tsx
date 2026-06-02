@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Geist_Mono, League_Spartan } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
+const leagueSpartan = League_Spartan({
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
 
-
-const plusJakartaSans = Plus_Jakarta_Sans({
+const geistSans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -28,7 +31,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", plusJakartaSans.variable, geistMono.variable, "font-sans")}
+      suppressHydrationWarning
+      className={cn("h-full", "antialiased", leagueSpartan.variable, geistSans.variable, geistMono.variable, "font-sans")}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

@@ -1,7 +1,6 @@
 "use client"
 import { SchemaField, Operator } from "@/lib/schema/type"
-import { Input } from "@/components/ui/input"
-import { ChevronDown, Calendar } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 
 interface Props {
     fieldDef: SchemaField | undefined
@@ -85,7 +84,7 @@ export function ValueInput({ fieldDef, operator, value, onChange }: Props) {
 
         case "enum":
             return (
-                <div className="relative flex items-center h-[34px] border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground min-w-[120px] transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary animate-fade-in">
+                <div className="relative flex items-center h-[34px] w-36 border border-border/80 hover:border-border rounded-lg bg-background text-sm text-foreground transition-colors focus-within:ring-1 focus-within:ring-brand-primary/80 focus-within:border-brand-primary animate-fade-in">
                     <select
                         value={value ?? ""}
                         onChange={(e) => onChange(e.target.value)}

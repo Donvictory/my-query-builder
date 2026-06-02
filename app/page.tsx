@@ -15,8 +15,24 @@ import {
   Database,
   Moon,
   Sun,
-  Loader2,
 } from "lucide-react"
+
+function DotsLoader({ size = 7 }: { size?: number }) {
+  const colors = ["bg-indigo-500", "bg-amber-400", "bg-emerald-400"]
+  return (
+    <span className="flex items-center gap-1">
+      {colors.map((color, i) => (
+        <motion.span
+          key={i}
+          className={`rounded-sm ${color} shrink-0`}
+          style={{ width: size, height: size }}
+          animate={{ y: [0, -(size * 1.4), 0] }}
+          transition={{ duration: 0.55, repeat: Infinity, delay: i * 0.13, ease: "easeInOut" }}
+        />
+      ))}
+    </span>
+  )
+}
 
 const features = [
   {
@@ -32,7 +48,7 @@ const features = [
   {
     icon: Database,
     title: "Schema Awareness",
-    description: "Select from pre-loaded schemas — fields, types, and operators auto-populate.",
+    description: "Select from pre-loaded schemas, fields, types, and operators auto-populate.",
   },
   {
     icon: History,
@@ -52,7 +68,7 @@ const features = [
   {
     icon: Shield,
     title: "Undo / Redo",
-    description: "Full history stack — experiment freely, knowing every change is reversible.",
+    description: "Full history stack, experiment freely, knowing every change is reversible.",
   },
 ]
 
@@ -124,7 +140,7 @@ export default function LandingPage() {
 
             <p className="text-lg text-muted-foreground max-w-xl animate-in fade-in slide-in-from-bottom-3 duration-500 delay-300">
               QueryCraft lets you visually compose, preview, and execute database queries using
-              a drag-and-drop logic tree — no SQL knowledge required.
+              a drag-and-drop logic tree, and no SQL knowledge required.
             </p>
 
             <motion.button
@@ -145,7 +161,7 @@ export default function LandingPage() {
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.15 }}
                   >
-                    <Loader2 size={15} className="animate-spin" />
+                    <DotsLoader size={7} />
                     Launching…
                   </motion.span>
                 ) : (
@@ -165,12 +181,12 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Features */}
+
         <section className="px-6 py-7 max-w-6xl mx-auto">
           <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-3 duration-500">
             <h2 className="text-3xl font-bold tracking-tight mb-3">Everything you need</h2>
             <p className="text-muted-foreground text-base max-w-lg mx-auto">
-              A complete query workbench — from first condition to final result.
+              A complete query workbench, from first condition to final result.
             </p>
           </div>
 
@@ -214,7 +230,7 @@ export default function LandingPage() {
 
         <section className="px-6 py-16">
           <div className="max-w-2xl mx-auto glass-panel rounded-2xl p-10 text-center flex flex-col items-center gap-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-2xl font-bold tracking-tight">Ready to query smarter?</h2>
+            <h2 className="text-2xl font-medium tracking-tight">Ready to query smarter?</h2>
             <p className="text-muted-foreground text-sm max-w-md">
               Open the builder and start composing in seconds, no sign-up, no setup.
             </p>
@@ -227,7 +243,7 @@ export default function LandingPage() {
               <AnimatePresence mode="wait" initial={false}>
                 {isNavigating ? (
                   <motion.span key="loading" className="flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                    <Loader2 size={15} className="animate-spin" /> Launching…
+                    <DotsLoader size={7} /> Launching…
                   </motion.span>
                 ) : (
                   <motion.span key="idle" className="flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -253,7 +269,7 @@ export default function LandingPage() {
             transition={{ duration: 0.22, ease: "easeOut" }}
           >
             <motion.span
-              className="text-3xl font-bold tracking-tight"
+              className="text-3xl font-bold tracking-tight mb-3"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.06, duration: 0.5 }}
@@ -265,7 +281,7 @@ export default function LandingPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <Loader2 size={22} className="animate-spin text-brand-primary" />
+              <DotsLoader size={14} />
             </motion.div>
             <motion.p
               className="text-lg text-muted-foreground"
