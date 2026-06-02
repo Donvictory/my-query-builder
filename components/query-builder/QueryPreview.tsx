@@ -73,7 +73,6 @@ export function QueryPreview() {
       {/* IDE Syntax Editor Console Container */}
       <div className="relative bg-slate-950 dark:bg-slate-950 p-4 font-mono text-sm select-text">
 
-        {/* Visual Window Controls */}
         <div className="flex gap-1.5 mb-3.5 select-none">
           <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />

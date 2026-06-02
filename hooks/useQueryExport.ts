@@ -3,7 +3,7 @@ import { useQueryStore } from "@/store/query-store"
 import { QueryGroup, QueryNode } from "@/lib/schema/type"
 import { StarterPreset } from "@/lib/schema/starter-presets"
 
-function validateNode(node: QueryNode): boolean {
+export function validateNode(node: QueryNode): boolean {
     if (node.type === "rule") {
         return (
             typeof node.field === "string" && node.field.length > 0 &&

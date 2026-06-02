@@ -17,6 +17,9 @@ import {
     Loader2,
     ChevronLeft,
     ChevronRight,
+    ArrowUp,
+    ArrowDown,
+    ArrowUpDown,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -71,14 +74,43 @@ export function ResultsTable() {
 
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(5)
+    const [sortCol, setSortCol] = useState<string | null>(null)
+    const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
 
     useEffect(() => {
         setPage(0)
+        setSortCol(null)
     }, [results])
 
+    function handleSort(col: string) {
+        if (sortCol !== col) {
+            setSortCol(col)
+            setSortDir("asc")
+        } else if (sortDir === "asc") {
+            setSortDir("desc")
+        } else {
+            setSortCol(null)
+        }
+        setPage(0)
+    }
+
+    const sortedResults = sortCol
+        ? [...results].sort((a, b) => {
+            const av = a[sortCol]
+            const bv = b[sortCol]
+            if (av === null || av === undefined) return 1
+            if (bv === null || bv === undefined) return -1
+            const cmp =
+                typeof av === "number" && typeof bv === "number"
+                    ? av - bv
+                    : String(av).localeCompare(String(bv), undefined, { numeric: true })
+            return sortDir === "asc" ? cmp : -cmp
+        })
+        : results
+
     const columns = Object.keys(schema)
-    const totalPages = Math.ceil(results.length / pageSize)
-    const pageRows = results.slice(page * pageSize, (page + 1) * pageSize)
+    const totalPages = Math.ceil(sortedResults.length / pageSize)
+    const pageRows = sortedResults.slice(page * pageSize, (page + 1) * pageSize)
 
     return (
         <div className="border border-border/70 rounded-xl bg-card shadow-xs overflow-hidden">
@@ -145,17 +177,27 @@ export function ResultsTable() {
                         <table className="w-full text-sm text-left border-collapse">
                             <thead>
                                 <tr className="border-b border-border bg-muted/10 sticky top-0 backdrop-blur-xs z-10">
-                                    {columns.map((col) => (
-                                        <th
-                                            key={col}
-                                            className="py-2.5 px-3.5 text-sm font-medium text-muted-foreground tracking-wider"
-                                        >
-                                            <div className="flex items-center gap-1.5">
-                                                {getColumnIcon(col)}
-                                                {schema[col].label}
-                                            </div>
-                                        </th>
-                                    ))}
+                                    {columns.map((col) => {
+                                        const isActive = sortCol === col
+                                        return (
+                                            <th
+                                                key={col}
+                                                onClick={() => handleSort(col)}
+                                                className="py-2.5 px-3.5 text-sm font-medium text-muted-foreground tracking-wider cursor-pointer select-none hover:text-foreground transition-colors"
+                                            >
+                                                <div className="flex items-center gap-1.5">
+                                                    {getColumnIcon(col)}
+                                                    {schema[col].label}
+                                                    {isActive
+                                                        ? sortDir === "asc"
+                                                            ? <ArrowUp size={11} className="text-brand-primary shrink-0" />
+                                                            : <ArrowDown size={11} className="text-brand-primary shrink-0" />
+                                                        : <ArrowUpDown size={11} className="opacity-30 shrink-0" />
+                                                    }
+                                                </div>
+                                            </th>
+                                        )
+                                    })}
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/40">

@@ -19,4 +19,10 @@ export const OPERATOR_LABELS: Record<Operator, string> = {
     between: "between",
     is_null: "is null",
     is_not_null: "is not null",
+    ends_with: "ends with",
+    greater_than_or_equal_to: "greater than or equal to",
+    less_than_or_equal_to: "less than or equal to",
+    not_in_array: "not in array",
+    not_between: "not between",
+
 }
