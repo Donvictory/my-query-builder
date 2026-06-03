@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, League_Spartan } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 
-const leagueSpartan = League_Spartan({
-  subsets: ["latin"],
-  variable: "--font-heading",
-});
-
-const geistSans = Geist({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -33,11 +28,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("h-full", "antialiased", leagueSpartan.variable, geistSans.variable, geistMono.variable, "font-sans")}
+      className={cn("h-full", "antialiased", plusJakartaSans.variable, geistMono.variable, "font-sans")}
     >
-      <Toaster position="top-right" />
 
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+
+        <div>
+          <Toaster position="top-right" />
+
+          {children}</div></body>
     </html>
   );
 }
