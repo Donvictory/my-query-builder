@@ -132,7 +132,7 @@ export default function LandingPage() {
           <div className="relative z-10 flex flex-col items-center gap-6 max-w-3xl">
 
 
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
               Build SQL queries
               <br />
               <span className="text-brand-primary">without the syntax</span>
